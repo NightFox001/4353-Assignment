@@ -1,7 +1,5 @@
-// import axios from "axios";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-// import Alert from "@material-ui/lab/Alert";
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -12,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    background: "rgba(255,255,255,0.9)"
+    background: "rgba(235,235,255,0.9)"
   },
 }));
 
@@ -22,7 +20,7 @@ const Login = () => {
     const [error, setError] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-		const [loadingAccount, setLoadingAccount] = useState(false)
+    const [loadingAccount, setLoadingAccount] = useState(false)
 
     const goToRegister = () => {
         router.push("/register")
