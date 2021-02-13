@@ -43,7 +43,7 @@ const Register = () => {
                 {!!error && <p>{error}</p>}
                 <TextField
                     label="Username"
-                    type="username"
+                    type="text"
                     margin="normal"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}

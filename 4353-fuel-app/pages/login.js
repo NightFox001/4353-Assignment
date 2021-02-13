@@ -44,8 +44,8 @@ const Login = () => {
             <Paper className={classes.paper}>
                 {!!error && <p>{error}</p>}
                 <TextField
-                    label="Email"
-                    type="email"
+                    label="Username"
+                    type="text"
                     margin="normal"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
