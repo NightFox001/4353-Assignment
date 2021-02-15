@@ -32,7 +32,7 @@ const Register = () => {
         if (!hasPassword) {
             return setError("Password is required.")
         }
-        router.push("/")
+        // router.push("/")
         return setError(error.response?.data?.message || "There was an issue creating your account.")
     }
 
