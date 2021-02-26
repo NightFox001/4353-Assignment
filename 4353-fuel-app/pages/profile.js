@@ -46,7 +46,7 @@ const Login = () => {
                         />
                         <br /><br />
                         <TextField
-                            label="Address 1"
+                            label="Address line 1"
                             type="text"
                             margin="normal"
                             value={address1}
@@ -55,7 +55,7 @@ const Login = () => {
                         />
                         <br /><br />
                         <TextField
-                            label="Address 2"
+                            label="Address line 2"
                             type="text"
                             margin="normal"
                             value={address2}
