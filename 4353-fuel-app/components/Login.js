@@ -9,7 +9,6 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
-    color: theme.palette.text.secondary,
     background: "rgba(235,235,255,0.9)"
   },
 }));
@@ -60,7 +59,7 @@ export const Login = () => {
                     required
                 />
                 <br /><br />
-                <Button color="primary" onClick={handleLogin} variant="contained">Log In</Button>
+                <Button color="rgba(156, 163, 175, 1)" onClick={handleLogin} variant="contained">Log In</Button>
                 <br /><br />
                 
             </Paper>
