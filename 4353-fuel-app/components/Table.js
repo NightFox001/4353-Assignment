@@ -10,7 +10,7 @@ export default function Table({columns, data}) {
         prepareRow
     } = useTable({
         columns,
-        data
+        data,
     })
 
     return (
