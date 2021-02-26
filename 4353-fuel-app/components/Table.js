@@ -1,7 +1,12 @@
 import React from "react"
 import { useTable } from "react-table"
 
+<<<<<<< HEAD
 export const Table = ({columns, data}) => {
+=======
+export default function Table({columns, data}) {
+    
+>>>>>>> a09e146289fd265761be9f75b032f24374ba2d83
     const {
         getTableProps,
         getTableBodyProps,
