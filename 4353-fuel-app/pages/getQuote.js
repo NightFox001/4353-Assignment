@@ -7,7 +7,6 @@ import { Header } from '../components/Header';
 import { useRouter } from "next/router";
 import { useState } from 'react'
 
-
   const getQuote = () => {
     const [date, setDate] = useState();
     
@@ -15,25 +14,32 @@ import { useState } from 'react'
       <>
         <Header />
           <form>
+          <div class="bg-gradient-to-r from-gray-400 via-gray-400 to-gray-400 ...">
             <div className="fillIns">
-                <div class = "text-6xl underline">
+                <div class = "text-6xl underline text-black-400">
                     Fuel Quote
                 </div>
                 <br></br>
+                <br></br> 
                 <br></br>
+            <div class = "text-black-400">
+                Gallons Requested :
                 <br></br>
-            <div>
-                Gallons Requested:
-                <input class = "bg-gray-200 focus:bg-white..."></input>
+                <input placeholder = "Gallons" type = 'number' onKeyPress = "return event.charCode >= 48" min = "1" ></input>
             </div>
                 <br></br>
-                <div>
-                    Delivery Address:
-                    <textarea readonly = "readonly">32</textarea>
+                <div class = "text-black-400">
+                    Delivery Address 1 : 
+                    <br></br>
+                    <textarea id = "address1" name = "story" rows = "1" cols = "25" id = "title" name = "title" readonly = "readonly"><script src = "profile.js">setAddress1</script></textarea>
+                    <br></br>
+                    Delivery Address 2 : 
+                    <br></br>
+                    <textarea rows = "1" cols = "25" readonly = "readonly"><script src = "profile.js">setAddress2</script></textarea>
                 </div>
                 <br></br>
-                <div>
-                Delivery Date:
+                <div class = "text-black-400">
+                Delivery Date : 
                 <br></br>
               <DatePicker
                   selected={ date }
@@ -44,9 +50,17 @@ import { useState } from 'react'
               </div>
               <br></br>
               <div>
-                Total Amount:
-                <textarea readonly = "readonly">Total Cost</textarea>
+                Price Per Gallon :
+                <br></br>
+                <textarea readonly = "readonly" type = 'number' rows = "1" cols = "25">P/G</textarea>
               </div>
+              <br></br>
+              <div class = "text-black-400">
+                Total Amount : 
+                <br></br>
+                <textarea readonly = "readonly" rows = "1" cols = "25">Total Cost</textarea>
+              </div>
+            </div>
             </div>
           </form>
       </>
