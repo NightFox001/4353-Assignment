@@ -19,11 +19,16 @@ const Home = () => {
 
 
     return (
-        <div>
+        <div class='bg-gray-400 bg-opacity-90 h-screen'>
             <HomeHeader/>
-            <div class='flex'>
-                <Login/>
-                <Register/>
+            <div class='flex m-6 space-x-4'>
+                <div class='flex-1'>
+                    <Login />
+                </div>
+                <div class='flex-1'>
+                    <Register />
+                </div>
+                    
             </div>
         </div>
     )
