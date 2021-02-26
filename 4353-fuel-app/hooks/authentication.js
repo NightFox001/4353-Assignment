@@ -3,5 +3,15 @@ import { useRouter } from "next/router"
 
 export const useAuth = () => {
   const router = useRouter()
-  return router.push("/login")
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    const userString = localStorage.getItem("user")
+    if (!userString) {
+    }
+    return router.push("/login")
+    setUser(JSON.parse(userString))
+  }, [])
+
+  return user
 }

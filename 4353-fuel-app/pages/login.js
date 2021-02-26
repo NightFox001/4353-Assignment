@@ -27,15 +27,18 @@ const Login = () => {
     }
 
     const handleLogin = async () => {
-        const hasEmail = !!email && email.trim().length > 0
-        const hasPassword = !!password && password.trim().length > 0
-				setError("")
-        if (!hasEmail) {
-            return setError("Email is required.")
-        }
-        if (!hasPassword) {
-            return setError("Password is required.")
-        }
+        // functionality not needed yet
+        // const hasEmail = !!email && email.trim().length > 0
+        // const hasPassword = !!password && password.trim().length > 0
+		// 		setError("")
+        // if (!hasEmail) {
+        //     return setError("Email is required.")
+        // }
+        // if (!hasPassword) {
+        //     return setError("Password is required.")
+        // }
+        
+        router.push("profile")
     }
 
     return (
