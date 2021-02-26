@@ -8,7 +8,7 @@ export const Header = () => {
     const [searchValue, setSearchValue] = useState('')
 
 const handleLogOut = () => {
-    router.push('/login')
+    router.push('/home')
 }
 
 const goToGetQuote = () => {
