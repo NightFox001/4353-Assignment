@@ -8,22 +8,13 @@ import { useRouter } from "next/router";
 import { useState } from 'react'
 
 
-
-  export const getQuote = () => {
-    const router = useRouter()
-    const [startDate, setStartDate] = useState(null);
-    const [error, setError] = useState("")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [loadingAccount, setLoadingAccount] = useState(false)
-
-    const handleSubmit = () => {
-      alert('date set')
-    }
+  const getQuote = () => {
+    const [date, setDate] = useState();
+    
     return (
       <>
         <Header />
-          <form onSubmit={ handleSubmit }>
+          <form>
             <div className="fillIns">
                 <div class = "text-6xl underline">
                     Fuel Quote
@@ -45,8 +36,8 @@ import { useState } from 'react'
                 Delivery Date:
                 <br></br>
               <DatePicker
-                  selected={ startDate }
-                  onChange={ startDate  => setStartDate(startDate) }
+                  selected={ date }
+                  onChange={ date => setDate(date) }
                   name="startDate"
                   dateFormat="MM/dd/yyyy"
               />
