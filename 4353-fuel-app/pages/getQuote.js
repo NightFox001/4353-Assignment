@@ -4,18 +4,23 @@ import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TextField from '@material-ui/core/TextField';
 import { Header } from '../components/Header';
+import React, { useState } from 'react';
 
 
-class FuelQuote extends Component {
 
-  constructor (props) {
-    super(props)
-    this.state = {
-      startDate: new Date()
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.onFormSubmit = this.onFormSubmit.bind(this);
-  }
+
+  const getQuote = () => {
+    const classes = useStyles()
+    const router = useRouter()
+    const [date, setDate] = useState();
+    /*const [error, setError] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [loadingAccount, setLoadingAccount] = useState(false)
+
+    const goToRegister = () => {
+        router.push("/register")*/
+    }
 
   handleChange(date) {
     this.setState({
@@ -27,6 +32,8 @@ class FuelQuote extends Component {
     e.preventDefault();
     console.log(this.state.startDate)
   }
+
+
  
   render() {
     return (
@@ -42,11 +49,7 @@ class FuelQuote extends Component {
                 <br></br>
             <div>
                 Gallons Requested:
-                <TextField
-                  label = "Gallons"
-                  type = "text"
-                  margin = "normal"
-                />
+                <input class = "bg-gray-200 focus:bg-white..."></input>
             </div>
                 <br></br>
                 <div>
@@ -58,7 +61,7 @@ class FuelQuote extends Component {
                 Delivery Date:
                 <br></br>
               <DatePicker
-                  selected={ this.state.startDate }
+                  selected={ startDate }
                   onChange={ this.handleChange }
                   name="startDate"
                   dateFormat="MM/dd/yyyy"
@@ -67,7 +70,6 @@ class FuelQuote extends Component {
               <br></br>
               <div>
                 Total Amount:
-
                 <textarea readonly = "readonly">Total Cost</textarea>
               </div>
             </div>
@@ -78,4 +80,4 @@ class FuelQuote extends Component {
   
 }
 
-export default FuelQuote;
+export default getQuote;
