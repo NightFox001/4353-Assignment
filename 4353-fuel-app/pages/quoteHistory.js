@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Paper from '@material-ui/core/Paper';
@@ -17,6 +18,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// When we have implemented a user being logged in, it will check that a user IS logged in
+//   before attempting to contact the server to get the quote history.
+// Also, when the user is logged in, relevant identifying information will be sent to the 
+//   server to request the correct quote history
 const QuoteHistory = () => {
     const classes = useStyles()
     
@@ -25,8 +30,46 @@ const QuoteHistory = () => {
     // Async not only allows the json data here to be parsed before the table is rendered, but will also allow
     //    time for the server to retrieve the necessary data
     const getQuoteHistory = async () => {
-        jsonfile = "../testHistory.json"
-        jsondata = await JSON.parse(jsonfile)
+        const testdata = `{[
+            {
+                "quote_id": "1",
+                "delivery_address" : "address!",
+                "date_requested": "date 1!",
+                "date_delivered": "date 2!",
+                "gallons": "gals!",
+                "rate": "too much!",
+                "total_price": "really high!"
+            },
+            {
+                "quote_id": "2",
+                "delivery_address" : "address??",
+                "date_requested": "date 3!",
+                "date_delivered": "date 4!",
+                "gallons": "gals??",
+                "rate": "too much??",
+                "total_price": "really high??"
+            },
+            {
+                "quote_id": "3",
+                "delivery_address" : "address two electric boogaloo",
+                "date_requested": "date 5!",
+                "date_delivered": "date 6!",
+                "gallons": "gals! gals! gals!",
+                "rate": "too much! or not enough?",
+                "total_price": "really high! or way to cheap?"
+            },
+            {
+                "quote_id": "4",
+                "delivery_address" : "address the 4th, awakening",
+                "date_requested": "date 7!",
+                "date_delivered": "date 8!",
+                "gallons": "gals! AND guys!",
+                "rate": "way to low!",
+                "total_price": "reasonable despite the rate!"
+            }
+        ]
+    }`
+        const jsondata = await JSON.parse(testdata)
 
         return jsondata
     }
@@ -69,8 +112,6 @@ const QuoteHistory = () => {
     const data = React.useMemo(
         () => getQuoteHistory()
     )
-
-    const tableInstance = useTable({columns, data})
 
     return(
         <div>

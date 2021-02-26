@@ -20,7 +20,7 @@ const goToProfile = () => {
 }
 
 const goToQuoteHistory = () => {
-    router.push('/getQuoteHistory')
+    router.push('/quoteHistory')
 }
 
 const goToHelp = () => {

@@ -1,5 +1,4 @@
-{
-    "quotes": [
+{"quotes": [
         {
             "quote_id": "1",
             "delivery_address" : "address!",
@@ -35,6 +34,6 @@
             "gallons": "gals! AND guys!",
             "rate": "way to low!",
             "total_price": "reasonable despite the rate!"
-        },
+        }
     ]
 }
