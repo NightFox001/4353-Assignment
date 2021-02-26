@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Register = () => {
+export const Register = () => {
     const classes = useStyles()
     const router = useRouter()
     const [username, setUsername] = useState("")
