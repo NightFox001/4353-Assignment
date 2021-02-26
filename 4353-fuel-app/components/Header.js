@@ -13,6 +13,7 @@ const handleLogOut = () => {
 
   return (
     <>
+
         <div class='text-7xl'>Company Name</div>
         <div class='m-8 flex  text-1xl bg-gray-500 '>
             <button class="flex-1 bg-gray-300 hover:bg-gray-500">Profile</button>
