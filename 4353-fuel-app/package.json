@@ -9,25 +9,19 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
-<<<<<<< HEAD
     "bootstrap": "^4.6.0",
     "next": "10.0.6",
     "react": "^17.0.1",
     "react-datepicker": "^3.6.0",
     "react-dom": "17.0.1",
     "react-router-dom": "^5.2.0",
-    "yarn": "^1.22.10"
-=======
+    "yarn": "^1.22.10",
     "@material-ui/styles": "^4.11.3",
-    "init": "^0.1.2",
-    "next": "10.0.6",
-    "react": "^17.0.1",
-    "react-dom": "17.0.1"
+    "init": "^0.1.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.2.4",
     "postcss": "^8.2.6",
     "tailwindcss": "^2.0.3"
->>>>>>> c62246c04dc5d07b146b8754a6d18682fe07c604
   }
 }
