@@ -26,13 +26,14 @@ const Login = () => {
     const [address2, setAddress2] = useState("")
     const [city, setCity] = useState("")
     const [state, setState] = useState("")
+    const [zipcode, setZipcode] = useState("")
     const [loadingAccount, setLoadingAccount] = useState(false)
 
 
     return (
         <div class=''>
             <Header />
-            <div class=' bg-gray-400 bg-opacity-95 text-white h-screen'>
+            <div class='bg-gray-400 bg-opacity-95 h-screen'>
     {/* be on Profile page / form:
 	- Full Name (50 characters, required)
 	- Address 1 (100 characters, required)
@@ -143,6 +144,16 @@ const Login = () => {
                         <option value={'WI'}>WI</option>
                         <option value={'WY'}>WY</option>
                         </Select>
+                        <br/><br/>
+                        <TextField
+                        label="Zipcode"
+                        type="text"
+                        margin="normal"
+                        value={zipcode}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        />
+                    <br/><br/>
                         
                 </form>
             </div>
