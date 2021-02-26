@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = () => {
+export const Login = () => {
     const classes = useStyles()
     const router = useRouter()
     const [error, setError] = useState("")
@@ -22,27 +22,23 @@ const Login = () => {
     const [password, setPassword] = useState("")
     const [loadingAccount, setLoadingAccount] = useState(false)
 
-    const goToRegister = () => {
-        router.push("/register")
-    }
 
     const handleLogin = async () => {
-        // functionality not needed yet
-        // const hasEmail = !!email && email.trim().length > 0
-        // const hasPassword = !!password && password.trim().length > 0
-		// 		setError("")
-        // if (!hasEmail) {
-        //     return setError("Email is required.")
-        // }
-        // if (!hasPassword) {
-        //     return setError("Password is required.")
-        // }
+        const hasEmail = !!email && email.trim().length > 0
+        const hasPassword = !!password && password.trim().length > 0
+				setError("")
+        if (!hasEmail) {
+            return setError("Email is required.")
+        }
+        if (!hasPassword) {
+            return setError("Password is required.")
+        }
         
-        router.push("profile")
+        router.push("/profile")
     }
 
     return (
-        <div>
+        <div class='text-center'>
             <h1 style={{ color: 'white', fontWeight: 900 }}>Log In</h1>
             <Paper className={classes.paper}>
                 {!!error && <p>{error}</p>}
@@ -66,7 +62,7 @@ const Login = () => {
                 <br /><br />
                 <Button color="primary" onClick={handleLogin} variant="contained">Log In</Button>
                 <br /><br />
-                <Button color="primary" onClick={goToRegister} variant="contained">Register</Button>
+                
             </Paper>
         </div>
     )
