@@ -25,7 +25,7 @@ const goToHelp = () => {
 
   return (
     <>
-        <div class='bg-gray-400 bg-opacity-80 w-full pt-6 pb-1' >
+        <div class='bg-gray-700 bg-opacity-80 w-full pt-6 pb-1' >
 
             <div class='text-7xl'>Company Name</div>
             <div class='m-8 p-1.5 flex bg-opacity-70 text-1xl bg-gray-500 rounded-lg '>
