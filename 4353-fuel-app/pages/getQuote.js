@@ -34,27 +34,28 @@ class FuelQuote extends Component {
         <Header />
           <form onSubmit={ this.onFormSubmit }>
             <div className="fillIns">
-                <h1>
+                <div class = "text-6xl underline">
                     Fuel Quote
-                </h1>
+                </div>
                 <br></br>
                 <br></br>
                 <br></br>
-            <h3>
-                Gallons Requested
+            <div>
+                Gallons Requested:
                 <TextField
-                label="number"
-                type="text"
-                margin="normal"
+                  label = "Gallons"
+                  type = "text"
+                  margin = "normal"
                 />
-            </h3>
+            </div>
                 <br></br>
-                <h3>
-                    Delivery Address
-                </h3>
+                <div>
+                    Delivery Address:
+                    <textarea readonly = "readonly">32</textarea>
+                </div>
                 <br></br>
-                <h4>
-                Delivery Date
+                <div>
+                Delivery Date:
                 <br></br>
               <DatePicker
                   selected={ this.state.startDate }
@@ -62,7 +63,13 @@ class FuelQuote extends Component {
                   name="startDate"
                   dateFormat="MM/dd/yyyy"
               />
-              </h4>
+              </div>
+              <br></br>
+              <div>
+                Total Amount:
+
+                <textarea readonly = "readonly">Total Cost</textarea>
+              </div>
             </div>
           </form>
       </>
