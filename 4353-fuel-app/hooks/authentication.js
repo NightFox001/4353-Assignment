@@ -9,7 +9,7 @@ export const useAuth = () => {
     const userString = localStorage.getItem("user")
     if (!userString) {
     }
-    return router.push("/login")
+    return router.push("/home")
     setUser(JSON.parse(userString))
   }, [])
 
