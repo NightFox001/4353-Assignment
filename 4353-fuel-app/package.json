@@ -9,15 +9,16 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
+    "@material-ui/styles": "^4.11.3",
     "bootstrap": "^4.6.0",
+    "init": "^0.1.2",
     "next": "10.0.6",
     "react": "^17.0.1",
     "react-datepicker": "^3.6.0",
     "react-dom": "17.0.1",
     "react-router-dom": "^5.2.0",
-    "yarn": "^1.22.10",
-    "@material-ui/styles": "^4.11.3",
-    "init": "^0.1.2"
+    "react-table": "^7.6.3",
+    "yarn": "^1.22.10"
   },
   "devDependencies": {
     "autoprefixer": "^10.2.4",

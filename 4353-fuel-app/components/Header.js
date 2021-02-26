@@ -19,6 +19,10 @@ const goToProfile = () => {
     router.push('/profile')
 }
 
+const goToQuoteHistory = () => {
+    router.push('/getQuoteHistory')
+}
+
 const goToHelp = () => {
     router.push('/profile')
 }
@@ -29,8 +33,9 @@ const goToHelp = () => {
 
             <div class='text-7xl'>Company Name</div>
             <div class='m-8 p-1.5 flex bg-opacity-70 text-1xl bg-gray-500 rounded-lg '>
-                <button class="flex-1 m-2 bg-gray-300 hover:bg-gray-400 rounded-md h-8" onClick={goToProfile}>Profile</button>
                 <button class="flex-1 m-2 bg-gray-300 hover:bg-gray-400 rounded-md h-8" onClick={goToGetQuote}>Get Quote</button>
+                <button class="flex-1 m-2 bg-gray-300 hover:bg-gray-400 rounded-md h-8" onClick={goToQuoteHistory}>Get Quote History</button>
+                <button class="flex-1 m-2 bg-gray-300 hover:bg-gray-400 rounded-md h-8" onClick={goToProfile}>Profile</button>
                 <button class="flex-1 m-2 bg-gray-300 hover:bg-gray-400 rounded-md h-8" onClick={goToHelp}>Help</button>
                 <button class="flex-1 m-2 bg-gray-300 hover:bg-gray-400 rounded-md h-8" onClick={handleLogOut}>Log out</button>
             </div>
