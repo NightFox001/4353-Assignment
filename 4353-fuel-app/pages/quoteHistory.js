@@ -29,14 +29,8 @@ const QuoteHistory = () => {
     // For now, this will parse and return a placeholder json file to simulate data received from the server
     // Async not only allows the json data here to be parsed before the table is rendered, but will also allow
     //    time for the server to retrieve the necessary data
-
     const getQuoteHistory = async () => {
-<<<<<<< HEAD
-        try {
-        var testdata = `{[
-=======
        /* const unparsed = `{"quotes": [
->>>>>>> a09e146289fd265761be9f75b032f24374ba2d83
             {
                 "quote_id": "1",
                 "delivery_address" : "address!",
@@ -84,18 +78,10 @@ const QuoteHistory = () => {
             console.log(element);
         });
 
-<<<<<<< HEAD
-        return jsondata.quote_id
-        } catch (e) {
-            console.log(e)
-        }
-
-=======
         return jdata
       } catch (error) {
         console.error(error)
       }*/
->>>>>>> a09e146289fd265761be9f75b032f24374ba2d83
     }
 
     // Defines the column headers and accessors (accessors must match keys in JSON data)
@@ -183,10 +169,12 @@ const QuoteHistory = () => {
     )
 
     return(
-        <div>
+        <div class=''>
             <Header />
-            <div className='bg-gray-449 bg-opacity-95 h-screen'>
-                <Table columns={columns} data={data} />
+            <div class='bg-gray-400 bg-opacity-95 h-screen'>
+                <div class='container mx-auto'>
+                    <Table columns={columns} data={data} />
+                </div>
             </div>
         </div>
     )
