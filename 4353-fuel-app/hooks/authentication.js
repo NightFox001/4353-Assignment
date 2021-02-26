@@ -8,8 +8,8 @@ export const useAuth = () => {
   useEffect(() => {
     const userString = localStorage.getItem("user")
     if (!userString) {
-      return router.push("/login")
     }
+    return router.push("/login")
     setUser(JSON.parse(userString))
   }, [])
 

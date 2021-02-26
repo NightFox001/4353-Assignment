@@ -24,14 +24,14 @@ const Register = () => {
 
     
     const handleRegister = async () => {
-        const hasUsername = !!username && username.trim().length > 0
-        const hasPassword = !!password && password.trim().length > 0
-        if (!hasUsername) {
-            return setError("Username is required.")
-        }
-        if (!hasPassword) {
-            return setError("Password is required.")
-        }
+        // const hasUsername = !!username && username.trim().length > 0
+        // const hasPassword = !!password && password.trim().length > 0
+        // if (!hasUsername) {
+        //     return setError("Username is required.")
+        // }
+        // if (!hasPassword) {
+        //     return setError("Password is required.")
+        // }
         router.push("/")
         return setError(error.response?.data?.message || "There was an issue creating your account.")
     }
