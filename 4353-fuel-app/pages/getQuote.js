@@ -4,42 +4,26 @@ import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TextField from '@material-ui/core/TextField';
 import { Header } from '../components/Header';
-import React, { useState } from 'react';
+import { useRouter } from "next/router";
+import { useState } from 'react'
 
 
 
-
-  const getQuote = () => {
-    const classes = useStyles()
+  export const getQuote = () => {
     const router = useRouter()
-    const [date, setDate] = useState();
-    /*const [error, setError] = useState("")
+    const [startDate, setStartDate] = useState(null);
+    const [error, setError] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [loadingAccount, setLoadingAccount] = useState(false)
 
-    const goToRegister = () => {
-        router.push("/register")*/
+    const handleSubmit = () => {
+      alert('date set')
     }
-
-  handleChange(date) {
-    this.setState({
-      startDate: date
-    })
-  }
-
-  onFormSubmit(e) {
-    e.preventDefault();
-    console.log(this.state.startDate)
-  }
-
-
- 
-  render() {
     return (
       <>
         <Header />
-          <form onSubmit={ this.onFormSubmit }>
+          <form onSubmit={ handleSubmit }>
             <div className="fillIns">
                 <div class = "text-6xl underline">
                     Fuel Quote
@@ -62,7 +46,7 @@ import React, { useState } from 'react';
                 <br></br>
               <DatePicker
                   selected={ startDate }
-                  onChange={ this.handleChange }
+                  onChange={ startDate  => setStartDate(startDate) }
                   name="startDate"
                   dateFormat="MM/dd/yyyy"
               />
@@ -76,8 +60,6 @@ import React, { useState } from 'react';
           </form>
       </>
     );
-  }
-  
 }
 
 export default getQuote;
