@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import { Header } from '../components/Header';
 import { useRouter } from "next/router";
 import { useState } from 'react'
+import Button from '@material-ui/core/Button';
 
 const getQuote = () => {
   const [date, setDate] = useState();
@@ -70,6 +71,10 @@ const getQuote = () => {
                 Total Amount : 
                 <br/>
                 <textarea readOnly rows = "1" cols = "25">Total Cost</textarea>
+                <br/><br/>
+                <Button color="rgba(156, 163, 175, 1)" variant="contained">Get Quote</Button>
+                <br/>
+                <br/>
               </div>
             </div>
           </form>
