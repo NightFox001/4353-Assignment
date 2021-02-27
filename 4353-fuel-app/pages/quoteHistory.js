@@ -169,9 +169,9 @@ const QuoteHistory = () => {
     )
 
     return(
-        <div class=''>
+        <div class='bg-gray-400 bg-opacity-90 overflow-auto h-screen'>
             <Header />
-            <div class='bg-gray-400 bg-opacity-95 h-screen'>
+            <div class='m-14 pl-8 bg-gray-100 rounded-md'>
                 <div class='container mx-auto'>
                     <Table columns={columns} data={data} />
                 </div>

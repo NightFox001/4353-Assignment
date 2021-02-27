@@ -5,9 +5,9 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { Header } from '../components/Header'
-import { red } from "@material-ui/core/colors";
 import Select from '@material-ui/core/Select';
 import { InputLabel } from "@material-ui/core";
+import { useAuth } from "../hooks/authentication";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,65 +15,138 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = () => {
+const Profile = () => {
     const classes = useStyles()
     const router = useRouter()
     const [error, setError] = useState("")
     const [fullName, setFullName] = useState("")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
     const [address1, setAddress1] = useState("")
     const [address2, setAddress2] = useState("")
     const [city, setCity] = useState("")
     const [state, setState] = useState("")
     const [zipcode, setZipcode] = useState("")
-    const [loadingAccount, setLoadingAccount] = useState(false)
+    const [editing, setEditing] = useState(false)
+    const [disabled, setDisabled] = useState(true)
+    // const [user, setUser] = useState(null)
 
+    
+    useEffect(() => {
+        const userString = localStorage.getItem("user")
+        if (!userString) {
+            setEditing(true)
+            setDisabled(false)
+        } else {
+            const user = JSON.parse(userString)
+            console.log(userString)
+            setFullName(user.fullName)
+            setAddress1(user.address1)
+            setAddress2(user.address2)
+            setCity(user.city)
+            setState(user.state)
+            setZipcode(user.zipcode)
 
+        }
+      }, [editing])
+
+    const handleEdit = () => {
+        setEditing(true)
+        setDisabled(false)
+    }
+
+    const handleSave = async () => {
+        const hasName = !!fullName && fullName.trim().length > 0
+        const hasAddress1 = !!address1 && address1.trim().length > 0
+        const hasAddress2 = !!address2 && address2.trim().length > 0
+        const hasCity = !!city && city.trim().length > 0
+        const hasState = !!state && state.trim().length > 0
+        const hasZipcode = !!zipcode && zipcode.trim().length > 0
+        setError("")
+        
+        var  user = {}
+        console.log(user)
+        if (!hasName) {
+            return setError("Name is required.")
+        } else { user.fullName = fullName }
+        if (!hasAddress1) {
+            return setError("Address is required.")
+        } else {user.address1 = address1}
+        if (hasAddress2) {
+            {user.address2 = address2}
+        } 
+        if (!hasCity) {
+            return setError("City is required.")
+        } else {user.city = city}
+        if (!hasState) {
+            return setError("State is required.")
+        } else {user.state = state}        
+        if (!hasZipcode) {
+            return setError("Zipcode is required.")
+        } else {user.zipcode = zipcode}
+        console.log(error)
+        setDisabled(true)
+        setEditing(false)
+        try {
+            console.log('saving user...')
+            localStorage.removeItem('user')
+            localStorage.setItem("user", JSON.stringify(user))
+            console.log(user)
+            console.log('user saved!')
+        } catch (error) {
+            return setError(error.response?.data?.message || "There was an issue saving you info.")
+        }
+    }
+
+    
     return (
-        <div class='bg-gray-400 bg-opacity-90 h-screen'>
+        <div class='bg-gray-400 bg-opacity-90 overflow-auto h-screen'>
             <Header />
             <div>
                 <div class='m-14 pl-8 bg-gray-100 rounded-md '> 
+                    {!!error && <p>{error}</p>}
                     <form className={classes.root}>
                         <TextField 
+                            disabled={disabled}
                             label="Full Name"
                             type="text"
                             margin="normal"
                             value={fullName}
-                            onChange={(e) => setFullName(e.target.value)}
+                            onChange={(fullName) => setFullName(fullName.target.value)}
                             required
                         />
                         <br /><br />
                         <TextField
+                            disabled={disabled}
                             label="Address line 1"
                             type="text"
                             margin="normal"
                             value={address1}
-                            onChange={(e) => setAddress1(e.target.value)}
+                            onChange={(address1) => setAddress1(address1.target.value)}
                             required
                         />
                         <br /><br />
                         <TextField
+                            disabled={disabled}
                             label="Address line 2"
                             type="text"
                             margin="normal"
                             value={address2}
-                            onChange={(e) => setAddress2(e.target.value)}
+                            onChange={(address2) => setAddress2(address2.target.value)}
                             
                         />
                         <br /><br />
                         <TextField
+                            disabled={disabled}
                             label="City"
                             type="text"
                             margin="normal"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            value={city}
+                            onChange={(city) => setCity(city.target.value)}
                             required
                             />
                         <br/><br/>
                         <InputLabel htmlFor='state'>State</InputLabel>
                         <Select
+                            disabled={disabled}
                             label='State'
                             type='text'
                             margin='normal'
@@ -83,7 +156,7 @@ const Login = () => {
                                 id: 'state',
                             }}
                             onChange={(e) => setState(e.target.value)}
-                            // <option aria-label="None" value="" />
+                            disabled={disabled} 
                             required
                             >
                             <option value={'AL'}>AL</option>
@@ -139,13 +212,19 @@ const Login = () => {
                             </Select>
                             <br/><br/>
                             <TextField
+                            disabled={disabled}
                             label="Zipcode"
                             type="text"
                             margin="normal"
                             value={zipcode}
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(zipcode) => setZipcode(zipcode.target.value)}
                             required
                             />
+                            <br /><br />
+                            {editing ? 
+                            <Button color="rgba(156, 163, 175, 1)" onClick={handleSave} variant="contained">Save</Button>
+                            : <Button color="rgba(156, 163, 175, 1)" onClick={handleEdit} variant="contained">Edit</Button>}
+                            
                         <br/><br/>
                             
                     </form>
@@ -156,4 +235,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Profile

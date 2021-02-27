@@ -31,9 +31,10 @@ class FuelQuote extends Component {
   render() {
     return (
       <>
+      <div class='bg-gray-400 bg-opacity-90 overflow-auto h-screen'>
         <Header />
           <form onSubmit={ this.onFormSubmit }>
-            <div className="fillIns">
+            <div >
                 <h1>
                     Fuel Quote
                 </h1>
@@ -65,6 +66,7 @@ class FuelQuote extends Component {
               </h4>
             </div>
           </form>
+          </div>
       </>
     );
   }

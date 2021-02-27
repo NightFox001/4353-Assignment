@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
+    color: theme.palette.text.secondary,
     background: "rgba(235,235,255,0.9)"
   },
 }));
@@ -17,13 +18,13 @@ export const Login = () => {
     const classes = useStyles()
     const router = useRouter()
     const [error, setError] = useState("")
-    const [email, setEmail] = useState("")
+    const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [loadingAccount, setLoadingAccount] = useState(false)
 
 
     const handleLogin = async () => {
-        const hasEmail = !!email && email.trim().length > 0
+        const hasEmail = !!username && username.trim().length > 0
         const hasPassword = !!password && password.trim().length > 0
 				setError("")
         if (!hasEmail) {
@@ -32,6 +33,11 @@ export const Login = () => {
         if (!hasPassword) {
             return setError("Password is required.")
         }
+        // localStorage.removeItem('user')
+        // localStorage.setItem('user', JSON.stringify({username: username}))
+        // const tempstring = localStorage.getItem('user')
+        // const temp = JSON.parse(tempstring)
+        // console.log(temp.username)
         
         router.push("/profile")
     }
@@ -45,8 +51,8 @@ export const Login = () => {
                     label="Username"
                     type="text"
                     margin="normal"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                     required
                 />
                 <br /><br />

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -7,40 +7,51 @@ import { Header } from '../components/Header';
 import { useRouter } from "next/router";
 import { useState } from 'react'
 
-  const getQuote = () => {
-    const [date, setDate] = useState();
-    
-    return (
-      <>
+const getQuote = () => {
+  const [date, setDate] = useState();
+  const [address1, setAddres1] = useState('');
+  const [address2, setAddres2] = useState('');
+
+
+  useEffect(() => {
+    const userStr = localStorage.getItem('user')
+    if (!userStr) {
+        setEditing(true)
+        setDisabled(false)
+    } else {
+        const user = JSON.parse(userStr)
+        const address = String(user.address1 + String(user.address2 ?  ', ' + user.address2 : '') +', '+ user.city +', '+ user.state +', '+ user.zipcode)
+        setAddres1(address)
+    }
+  }, [])
+
+
+  return (
+    <>
+      <div class='bg-gray-400 bg-opacity-90 overflow-auto h-screen'>
         <Header />
+        <div class='m-14 pl-8 bg-gray-100 rounded-md'>
           <form>
-          <div class="bg-gradient-to-r from-gray-400 via-gray-400 to-gray-400 ...">
-            <div className="fillIns">
-                <div class = "text-6xl underline text-black-400">
-                    Fuel Quote
+            <div>
+              <div class = "text-5xl text-black-400 p-6 pt-6">
+                  Request Quote
+              </div>
+              <div>
+                  Gallons Requested :
+                  <br/>
+                  <input placeholder="Gallons" type='number' min="1" defaultValue='1'></input>
+              </div>
+                <br/>
+                <div>
+                  Delivery Address: 
+                  <br/>
+                  <textarea id="address1" name="story" rows="2" cols="25" id="title" name="title" defaultValue={address1} readOnly/>
+                  <br/>
                 </div>
-                <br></br>
-                <br></br> 
-                <br></br>
-            <div class = "text-black-400">
-                Gallons Requested :
-                <br></br>
-                <input placeholder = "Gallons" type = 'number' onKeyPress = "return event.charCode >= 48" min = "1" ></input>
-            </div>
-                <br></br>
-                <div class = "text-black-400">
-                    Delivery Address 1 : 
-                    <br></br>
-                    <textarea id = "address1" name = "story" rows = "1" cols = "25" id = "title" name = "title" readonly = "readonly"><script src = "profile.js">setAddress1</script></textarea>
-                    <br></br>
-                    Delivery Address 2 : 
-                    <br></br>
-                    <textarea rows = "1" cols = "25" readonly = "readonly"><script src = "profile.js">setAddress2</script></textarea>
-                </div>
-                <br></br>
-                <div class = "text-black-400">
+                <br/>
+                <div>
                 Delivery Date : 
-                <br></br>
+                <br/>
               <DatePicker
                   selected={ date }
                   onChange={ date => setDate(date) }
@@ -48,23 +59,24 @@ import { useState } from 'react'
                   dateFormat="MM/dd/yyyy"
               />
               </div>
-              <br></br>
+              <br/>
               <div>
                 Price Per Gallon :
-                <br></br>
-                <textarea readonly = "readonly" type = 'number' rows = "1" cols = "25">P/G</textarea>
+                <br/>
+                <textarea readOnly type = 'number' rows = "1" cols = "25">P/G</textarea>
               </div>
-              <br></br>
-              <div class = "text-black-400">
+              <br/>
+              <div>
                 Total Amount : 
-                <br></br>
-                <textarea readonly = "readonly" rows = "1" cols = "25">Total Cost</textarea>
+                <br/>
+                <textarea readOnly rows = "1" cols = "25">Total Cost</textarea>
               </div>
-            </div>
             </div>
           </form>
-      </>
-    );
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default getQuote;
