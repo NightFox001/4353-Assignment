@@ -24,22 +24,32 @@ export const Login = () => {
 
 
     const handleLogin = async () => {
-        const hasEmail = !!username && username.trim().length > 0
+        const hasUsername = !!username && username.trim().length > 0
         const hasPassword = !!password && password.trim().length > 0
 				setError("")
-        if (!hasEmail) {
-            return setError("Email is required.")
+        if (!hasUsername) {
+            return setError("Username is required.")
         }
         if (!hasPassword) {
             return setError("Password is required.")
         }
+
+// This is were the api request is made to /api/login
+        // setLoadingAccount(true)
+        // try {
+        //     const response = await axios.get(`/api/login?username=${username}&password=${password}`)
+        //     localStorage.setItem("user", JSON.stringify(response.data))
+        //     router.push("/")
+        // } catch (error) {
+        //     return setError(error.response?.data?.message || "There was an issue logging in.")
+        // }
+        // setLoadingAccount(false)
+
         localStorage.removeItem('user')
         localStorage.setItem('user', JSON.stringify({username: username}))
-        const tempstring = localStorage.getItem('user')
-        const temp = JSON.parse(tempstring)
-        console.log(temp.username)
-        
         router.push("/profile")
+
+
     }
 
     return (
