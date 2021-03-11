@@ -9,16 +9,34 @@ const handler = async (req, res) => {
 	// mock data
 	const customerDB = [
 		{
-			customer_username: "Ironman", 
-			customer_password: "iamironman"
+			username: "Ironman", 
+			password: "iamironman",
+			fullName: "Tony Stark",
+			address1: "10880 Malibu Point",
+			address2: "",
+			city: "Malibu",
+			state: "CA",
+			zipcode: "90265",
 	 	},
 		{ 
-			customer_username: "Thor", 
-			customer_password: "strongestavenger"
+			username: "Thor", 
+			password: "strongestavenger",
+			fullName: "Thor Odinson",
+			address1: "1234 rd",
+			address2: "",
+			city: "Asgard",
+			state: "AG",
+			zipcode: "11111",
 		},
 		{
-			customer_username: "Spiderman", 
-			customer_password: "nowayhome"
+			username: "Spiderman", 
+			password: "nowayhome",
+			fullName: "Peter Parker",
+			address1: "1234 Queens rd",
+			address2: "",
+			city: "New York City",
+			state: "NY",
+			zipcode: "12345",
 		},
 	]
  
@@ -27,9 +45,9 @@ const handler = async (req, res) => {
 
 		console.log('\ntrying to login with username = '+ username)
 		for (let i = 0; i < customerDB.length; i++) {
-			if (customerDB[i].customer_username === username) {
+			if (customerDB[i].username === username) {
 				console.log("Customer found!\n")
-				if (customerDB[i].customer_password === password) {
+				if (customerDB[i].password === password) {
 					console.log("Correct password!\n")
 					customer = customerDB[i]
 				}

@@ -41,17 +41,12 @@ export const Login = () => {
         try {
             const response = await axios.get(`/api/login?username=${username}&password=${password}`)
             localStorage.setItem("user", JSON.stringify(response.data))
+            // console.log(response.data)
             router.push("/")
         } catch (error) {
             return setError(error.response?.data?.message || "There was an issue logging in.")
         }
         setLoadingAccount(false)
-
-        localStorage.removeItem('user')
-        localStorage.setItem('user', JSON.stringify({username: username}))
-        router.push("/profile")
-
-
     }
 
     return (
