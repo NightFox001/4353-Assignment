@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from "@material-ui/lab/Alert";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -36,9 +37,15 @@ export const Register = () => {
         if (!hasPassword) {
             return setError("Password is required.")
         }
+
+        try {
+            const response = await axios.post(`/api/register?username=${username}&password=${password}`)
+            console.log(response)
+        } catch (error) {
+            // if there was an error with the request, display the error msg if there is one
+            return setError(error.response?.data?.message || "There was an issue creating your account.")
+        }
         return setMessage('Account Created! Please Log In.')
-        // if there was an error when we have back end
-        // return setMessage(message.response?.data?.message || "There was an issue creating your account.")
     }
 
     return (
