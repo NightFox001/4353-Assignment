@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Profile = () => {
+    const user = useAuth()
     const classes = useStyles()
     const router = useRouter()
     const [error, setError] = useState("")
@@ -29,6 +30,7 @@ const Profile = () => {
     const [disabled, setDisabled] = useState(true)
     // const [user, setUser] = useState(null)
 
+    
     
     useEffect(() => {
         const userString = localStorage.getItem("user")

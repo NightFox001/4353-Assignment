@@ -33,11 +33,11 @@ export const Login = () => {
         if (!hasPassword) {
             return setError("Password is required.")
         }
-        // localStorage.removeItem('user')
-        // localStorage.setItem('user', JSON.stringify({username: username}))
-        // const tempstring = localStorage.getItem('user')
-        // const temp = JSON.parse(tempstring)
-        // console.log(temp.username)
+        localStorage.removeItem('user')
+        localStorage.setItem('user', JSON.stringify({username: username}))
+        const tempstring = localStorage.getItem('user')
+        const temp = JSON.parse(tempstring)
+        console.log(temp.username)
         
         router.push("/profile")
     }
