@@ -35,8 +35,7 @@ const Profile = () => {
     useEffect(() => {
         const userString = localStorage.getItem("user")
         if (!userString) {
-            setEditing(true)
-            setDisabled(false)
+            router.push('/home')
         } else {
             const user = JSON.parse(userString)
             console.log(userString)

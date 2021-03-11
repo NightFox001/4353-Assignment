@@ -11,6 +11,8 @@ export const useAuth = () => {
       return router.push("/home")
     }
     setUser(JSON.parse(userString))
+    return router.push("/profile")
     }, [])
+
   return user
 }

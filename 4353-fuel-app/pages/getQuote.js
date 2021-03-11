@@ -7,10 +7,8 @@ import { Header } from '../components/Header';
 import { useRouter } from "next/router";
 import { useState } from 'react'
 import Button from '@material-ui/core/Button';
-import { useAuth } from '../hooks/authentication';
 
 const getQuote = () => {
-  const user = useAuth()
   const router = useRouter();
   const [date, setDate] = useState();
   const [address1, setAddres1] = useState('');
@@ -18,11 +16,16 @@ const getQuote = () => {
 
 
   useEffect(() => {
-    if (!user) {
+    const userString = localStorage.getItem("user")
+    if (!userString) {
+      console.log('not user found in getQuote')
       router.push('/home')
     } else {
-        const address = String(user.address1 + String(user.address2 ?  ', ' + user.address2 : '') +', '+ user.city +', '+ user.state +', '+ user.zipcode)
-        setAddres1(address)
+      console.log('user found in getQuote')
+      const user = JSON.parse(userString)
+      // console.log('made it!' + user)
+      const address = String(user.address1 + String(user.address2 ?  ', ' + user.address2 : '') +', '+ user.city +', '+ user.state +', '+ user.zipcode)
+      setAddres1(address)
     }
   }, [])
 
