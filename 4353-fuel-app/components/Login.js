@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from "@material-ui/lab/Alert";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -36,15 +37,15 @@ export const Login = () => {
         }
 
 // This is were the api request is made to /api/login
-        // setLoadingAccount(true)
-        // try {
-        //     const response = await axios.get(`/api/login?username=${username}&password=${password}`)
-        //     localStorage.setItem("user", JSON.stringify(response.data))
-        //     router.push("/")
-        // } catch (error) {
-        //     return setError(error.response?.data?.message || "There was an issue logging in.")
-        // }
-        // setLoadingAccount(false)
+        setLoadingAccount(true)
+        try {
+            const response = await axios.get(`/api/login?username=${username}&password=${password}`)
+            localStorage.setItem("user", JSON.stringify(response.data))
+            router.push("/")
+        } catch (error) {
+            return setError(error.response?.data?.message || "There was an issue logging in.")
+        }
+        setLoadingAccount(false)
 
         localStorage.removeItem('user')
         localStorage.setItem('user', JSON.stringify({username: username}))

@@ -40,7 +40,7 @@ export const Register = () => {
 
         try {
             const response = await axios.post(`/api/register?username=${username}&password=${password}`)
-            console.log(response)
+            // console.log(response)
         } catch (error) {
             // if there was an error with the request, display the error msg if there is one
             return setError(error.response?.data?.message || "There was an issue creating your account.")

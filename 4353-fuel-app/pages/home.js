@@ -11,7 +11,7 @@ const Home = () => {
 
 
     return (
-        <div class='bg-gray-400 bg-opacity-90 h-screen'>
+        <div className='bg-gray-400 bg-opacity-90 h-screen'>
             <HomeHeader/>
             <div class='flex m-6 mt-14 space-x-4'>
                 <div class='flex-1'>
