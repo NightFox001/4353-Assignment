@@ -8,8 +8,8 @@ export default function Home() {
   }
 
   return (
-    <div style={{ flexGrow: 1 }}>
-      <p>You shouldn't see this... </p>
+    <div className="bg-gray-400 bg-opacity-90 overflow-auto h-screen" style={{ flexGrow: 1 }}>
+      <p className="text-7xl p-7 text-white bg-gray-900 bg-opacity-80 w-full">Fuel Source</p>
     </div>
   )
 }
