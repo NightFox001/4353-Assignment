@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Profile = () => {
-    const user = useAuth()
+    // const user = useAuth()
     const classes = useStyles()
     const router = useRouter()
     const [error, setError] = useState("")
@@ -93,7 +93,7 @@ const Profile = () => {
             console.log(user)
             console.log('user saved!')
         } catch (error) {
-            return setError(error.response?.data?.message || "There was an issue saving you info.")
+            return setError(error.response?.data?.message || "There was an issue saving your info.")
         }
     }
 

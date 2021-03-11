@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -19,6 +20,7 @@ export const Register = () => {
     const router = useRouter()
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const [error, setError] = useState("")
     const [message, setMessage] = useState("")
     const [loadingRegister, setLoadingRegister] = useState(false) // For future use
 
@@ -26,11 +28,13 @@ export const Register = () => {
     const handleRegister = async () => {
         const hasUsername = !!username && username.trim().length > 0
         const hasPassword = !!password && password.trim().length > 0
+        setError("")
+        setMessage("")
         if (!hasUsername) {
-            return setMessage("Username is required.")
+            return setError("Username is required.")
         }
         if (!hasPassword) {
-            return setMessage("Password is required.")
+            return setError("Password is required.")
         }
         return setMessage('Account Created! Please Log In.')
         // if there was an error when we have back end
@@ -41,7 +45,8 @@ export const Register = () => {
         <div class='text-center'>
             <h1 style={{ color: 'white', fontWeight: 900 }}>Create Account</h1>
             <Paper className={classes.paper}>
-                {!!message && <p>{message}</p>}
+                {!!error && <Alert severity="error">{error}</Alert>}
+                {!!message && <Alert severity="success">{message}</Alert>}
                 <TextField
                     label="Username"
                     type="text"

@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -56,7 +57,7 @@ export const Login = () => {
         <div class='text-center'>
             <h1 style={{ color: 'white', fontWeight: 900 }}>Log In</h1>
             <Paper className={classes.paper}>
-                {!!error && <p>{error}</p>}
+                {!!error && <Alert severity="error">{error}</Alert>}
                 <TextField
                     label="Username"
                     type="text"

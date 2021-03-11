@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "@material-ui/styles": "^4.11.3",
+    "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "init": "^0.1.2",
     "next": "10.0.6",
