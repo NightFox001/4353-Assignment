@@ -2,7 +2,7 @@
 
 
 const handler = async (req, res) => {
-	var customer = null
+	var customer
 	const username = req.query?.username
 	const password = req.query?.password
 
@@ -53,6 +53,8 @@ const handler = async (req, res) => {
 				if (customerDB[i].password === password) {
 					console.log("Correct password!\n")
 					customer = customerDB[i]
+					console.log("the customer we found " + JSON.stringify(customer))
+					return res.json(customer)
 				}
 			}
 		}
@@ -65,7 +67,6 @@ const handler = async (req, res) => {
 	} catch(error) {
 		return res.status(403).json({ message: error.message })
 	}
-	return res.json(customer)
 }
 
 export default handler

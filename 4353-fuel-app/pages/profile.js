@@ -34,6 +34,7 @@ const Profile = () => {
     
     useEffect(() => {
         const userString = localStorage.getItem("user")
+        console.log(userString)
         if (!userString) {
             router.push('/home')
         } else {
