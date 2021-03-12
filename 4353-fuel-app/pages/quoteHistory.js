@@ -27,40 +27,39 @@ const useStyles = makeStyles((theme) => ({
 const QuoteHistory = () => {
     const classes = useStyles()
     const router = useRouter()
-    const [custid, setCustID] = useState("")
+
+    const [error, setError] = useState("Loading quote history...")
+    const [loadingHistory, setLoadingHistory] = useState(true)
+    const [quoteHistory, setQuoteHistory] = useState("")
 
     // Get custid from userdata/cookie
-    //const user = useAuth();
-    useEffect(() => {
-        const userString = localStorage.getItem("user")
-        console.log(userString)
-        if(!userString) {
+    useEffect(async () => {
+        // Indicate that quote history is being loaded (to prevent the table from being created with nothing, causing errors)
+        setLoadingHistory(true)
+        // Retrieve the userId from local storage
+        const userId = localStorage.getItem("userId")
+        if(!userId) {
+            // If no userId was found, redirect to the home page
             router.push('/home')
-        } else {
-            const user = JSON.parse(userString)
-            console.log("user id: " + user.custid)
-            setCustID(user.custid)
+        } else { // Attempt to load quote history from loadQuoteHistory
+            try {
+                console.log("Loading quote history...")
+                const response = await axios.get(`/api/loadQuoteHistory?id=${userId}`)
+                
+                setQuoteHistory(response.data)
+                console.log("Quote history loaded.")
+                setError("") // Reset the error so there is no loading or error message
+                setLoadingHistory(false)
+            } catch (err) {
+                console.log(err)
+                return setError(err.response?.data?.message || "There was an issue loading quote history")
+            }
         }
     }, [])
 
-    const getData = async () => {
-        try {
-            const response = await axios.get(`/api/quoteHistoryBack?custid=${custid}`);
-            const jsonData = await response.json();
-            console.log("TESTING!")
-            console.log(jsonData)
-    
-    
-            console.log(jsonData)
-            return jsonData;
-        } catch (err) {
-            return MediaStreamError()
-        }
-    }
-
     // Defines the column headers and accessors (accessors must match keys in JSON data)
     // This is memoized to prevent redefining unnecessarily
-    // I might move column definitions to a separate file to make editing easier
+    // I might move column definitions to a separate file to make editing easier in the future
     const columns = React.useMemo(
         () => [
             {
@@ -91,60 +90,19 @@ const QuoteHistory = () => {
         []
     )
 
-    // Defines the data to be displayed in the table
-    // Memoized to prevent reaccessing data unnecessarily
+    // Memoizes the quote history data for the table
+    // Changes everytime the status of loadingHistory changes (i.e. it tries to memoize the data again once the quote history is actually loaded)
     const data = React.useMemo(
-        () => getData(custid), [] )
+        () => quoteHistory, [loadingHistory] )
 
-    const old_data = React.useMemo(
-        () => [
-            {
-                quote_id: "1",
-                delivery_address : "address!",
-                date_requested: "date 1!",
-                date_delivered: "date 2!",
-                gallons: "gals!",
-                rate: "too much!",
-                total_price: "really high!"
-            },
-            {
-                quote_id: "2",
-                delivery_address : "address??",
-                date_requested: "date 3!",
-                date_delivered: "date 4!",
-                gallons: "gals??",
-                rate: "too much??",
-                total_price: "really high??"
-            },
-            {
-                quote_id: "3",
-                delivery_address : "address two electric boogaloo",
-                date_requested: "date 5!",
-                date_delivered: "date 6!",
-                gallons: "gals! gals! gals!",
-                rate: "too much! or not enough?",
-                total_price: "really high! or way to cheap?"
-            },
-            {
-                quote_id: "4",
-                delivery_address : "address the 4th, awakening",
-                date_requested: "date 7!",
-                date_delivered: "date 8!",
-                gallons: "gals! AND guys!",
-                rate: "way to low!",
-                total_price: "reasonable despite the rate!"
-            }
-        ],
-        []
-    )
 
-    
     return(
-        <div class='bg-gray-400 bg-opacity-90 overflow-auto h-screen'>
+        <div className='bg-gray-400 bg-opacity-90 overflow-auto h-screen'>
             <Header />
-            <div class='m-14 pl-8 bg-gray-100 rounded-md'>
-                <div class='container mx-auto'>
-                    {!!custid && <Table columns={columns} data={data} />}
+            <div className='m-14 pl-8 bg-gray-100 rounded-md'>
+                <div className='container mx-auto'>
+                    {!!error && <p>{error}</p> /*If there is an error message (or the data is still loading), this displayes the appropriate message*/}
+                    {!loadingHistory && <Table columns={columns} data={data} /*Once the data is loaded, the table is created*//>}
                 </div>
             </div>
         </div>
