@@ -32,12 +32,12 @@ const getQuote = () => {
 
   return (
     <>
-      <div class='bg-gray-400 bg-opacity-90 overflow-auto h-screen'>
+      <div className='bg-gray-400 bg-opacity-90 overflow-auto h-screen'>
         <Header />
-        <div class='m-14 pl-8 bg-gray-100 rounded-md'>
+        <div className='m-14 pl-8 bg-gray-100 rounded-md'>
           <form>
             <div>
-              <div class = "text-5xl text-black-400 p-6 pt-6">
+              <div className= "text-5xl text-black-400 p-6 pt-6">
                   Request Quote
               </div>
               <div>
@@ -67,15 +67,15 @@ const getQuote = () => {
               <div>
                 Price Per Gallon :
                 <br/>
-                <textarea readOnly type = 'number' rows = "1" cols = "25">P/G</textarea>
+                <textarea readOnly type = 'number' rows = "1" cols = "25" defaultValue="P/G"></textarea>
               </div>
               <br/>
               <div>
                 Total Amount : 
                 <br/>
-                <textarea readOnly rows = "1" cols = "25">Total Cost</textarea>
+                <textarea readOnly rows = "1" cols = "25" defaultValue="Total Cost"></textarea>
                 <br/><br/>
-                <Button color="rgba(156, 163, 175, 1)" variant="contained">Get Quote</Button>
+                <Button color="rgba(156, 163, 175, 1)" variant="contained" defaultValue="Get Quote"></Button>
                 <br/>
                 <br/>
               </div>

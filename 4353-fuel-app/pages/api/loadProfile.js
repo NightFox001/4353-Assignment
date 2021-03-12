@@ -3,12 +3,11 @@
 
 const handler = async (req, res) => {
 	var customer = null
-	const username = req.query?.username
-	const password = req.query?.password
+	const id = req.query?.id
 
-	
-	const customerDB = [
-		{
+	// mock data
+	const customerDB = {
+		1: {
 			id: 1,
 			username: "Ironman", 
 			password: "iamironman",
@@ -19,7 +18,7 @@ const handler = async (req, res) => {
 			state: "CA",
 			zipcode: "90265",
 	 	},
-		{
+		2: {
 			id: 2,
 			username: "Thor", 
 			password: "strongestavenger",
@@ -30,7 +29,7 @@ const handler = async (req, res) => {
 			state: "AG",
 			zipcode: "11111",
 		},
-		{
+		3: {
 			id: 3,
 			username: "Spiderman", 
 			password: "nowayhome",
@@ -41,31 +40,24 @@ const handler = async (req, res) => {
 			state: "NY",
 			zipcode: "12345",
 		},
-	]
+	}
  
 	try {
-		// get customer from DB with username = requested username
+		// get customer profile info from DB with userId that will eventually be provided from login
 
-		console.log('\ntrying to login with username = '+ username)
-		for (let i = 0; i < customerDB.length; i++) {
-			if (customerDB[i].username === username) {
-				console.log("Customer found!\n")
-				if (customerDB[i].password === password) {
-					console.log("Correct password!\n")
-					customer = customerDB[i]
-				}
-			}
-		}
-
-		// check if a customer with that username exists
-		if (!customer) {
-			return res.status(400).json({ message: "Incorrect username or password" })
+		console.log("Getting profile... id: "+ id + "\n")
+		if (!customerDB[id]) {
+			return res.status(400).json({ message: "Customer not found with userID" })
 		} 
+	
+		console.log("Customer found!\n")
+		customer = customerDB[id]
+		
+		return res.status(200).json(customer)
 
 	} catch(error) {
 		return res.status(403).json({ message: error.message })
 	}
-	return res.json(customer)
 }
 
 export default handler

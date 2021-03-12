@@ -50,7 +50,7 @@ export const Login = () => {
     }
 
     return (
-        <div class='text-center'>
+        <div className='text-center'>
             <h1 style={{ color: 'white', fontWeight: 900 }}>Log In</h1>
             <Paper className={classes.paper}>
                 {!!error && <Alert severity="error">{error}</Alert>}
