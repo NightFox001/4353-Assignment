@@ -54,7 +54,8 @@ const handler = async (req, res) => {
 					console.log("Correct password!\n")
 					customer = customerDB[i]
 					console.log("the customer we found " + JSON.stringify(customer))
-					return res.json(customer)
+					console.log("returning id: " + customer.id)
+					return res.json(customer.id)
 				}
 			}
 		}

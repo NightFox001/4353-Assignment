@@ -50,9 +50,8 @@ const handler = async (req, res) => {
 			return res.status(400).json({ message: "Customer not found with userID" })
 		} 
 	
-		console.log("Customer found!\n")
+		console.log("Customer profile found!\n")
 		customer = customerDB[id]
-		
 		return res.status(200).json(customer)
 
 	} catch(error) {

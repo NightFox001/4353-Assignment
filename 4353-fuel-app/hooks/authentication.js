@@ -6,7 +6,7 @@ export const useAuth = () => {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    const userString = localStorage.getItem("user")
+    const userString = localStorage.getItem("userId")
     if (!userString) {
       return router.push("/home")
     }

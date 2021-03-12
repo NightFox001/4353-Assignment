@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Header } from '../components/Header'
 import Select from '@material-ui/core/Select';
 import { InputLabel, FormControl } from "@material-ui/core";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,10 +17,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Profile = () => {
-    // const user = useAuth()
     const classes = useStyles()
     const router = useRouter()
+
+    
     const [error, setError] = useState("")
+    const [id, setId] = useState(null)
     const [fullName, setFullName] = useState("")
     const [address1, setAddress1] = useState("")
     const [address2, setAddress2] = useState("")
@@ -28,25 +31,31 @@ const Profile = () => {
     const [zipcode, setZipcode] = useState("")
     const [editing, setEditing] = useState(false)
     const [disabled, setDisabled] = useState(true)
-    // const [user, setUser] = useState(null)
-
     
     
-    useEffect(() => {
+    useEffect( async () => {
+        setError("")
         const userString = localStorage.getItem("user")
         console.log(userString)
         if (!userString) {
             router.push('/home')
-        } else {
-            const user = JSON.parse(userString)
-            console.log(userString)
-            setFullName(user.fullName)
-            setAddress1(user.address1)
-            setAddress2(user.address2)
-            setCity(user.city)
-            setState(user.state)
-            setZipcode(user.zipcode)
-
+        } else { // get profile info from loadprofile
+            try {
+                const response = await axios.get(`/api/loadProfile?id=${userString}`)
+                console.log("profile recieved: ")
+                console.log(response.data)
+                const data = response.data
+                setId(data.id)
+                setFullName(data.fullName)
+                setAddress1(data.address1)
+                setAddress2(data.address2)
+                setCity(data.city)
+                setState(data.state)
+                setZipcode(data.zipcode)
+            } catch (error) {
+                return setError(error.response?.data?.message || "There was an issue loading profile")
+            }
+            // console.log(userString)
         }
       }, [editing])
 
@@ -56,6 +65,7 @@ const Profile = () => {
     }
 
     const handleSave = async () => {
+        const hasId = !!id
         const hasName = !!fullName && fullName.trim().length > 0
         const hasAddress1 = !!address1 && address1.trim().length > 0
         const hasAddress2 = !!address2 && address2.trim().length > 0
@@ -66,6 +76,9 @@ const Profile = () => {
         
         var  user = {}
         console.log(user)
+        if (!hasId) {
+            return setError("Id for logged in user not found.")
+        } else { user.id = id }
         if (!hasName) {
             return setError("Name is required.")
         } else { user.fullName = fullName }

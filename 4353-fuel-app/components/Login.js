@@ -40,7 +40,7 @@ export const Login = () => {
         setLoadingAccount(true)
         try {
             const response = await axios.get(`/api/login?username=${username}&password=${password}`)
-            localStorage.setItem("user", JSON.stringify(response.data))
+            localStorage.setItem("userId", JSON.stringify(response.data))
             router.push("/")
         } catch (error) {
             return setError(error.response?.data?.message || "There was an issue logging in.")
