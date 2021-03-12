@@ -49,7 +49,7 @@ export const Register = () => {
     }
 
     return (
-        <div class='text-center'>
+        <div className='text-center'>
             <h1 style={{ color: 'white', fontWeight: 900 }}>Create Account</h1>
             <Paper className={classes.paper}>
                 {!!error && <Alert severity="error">{error}</Alert>}
@@ -72,7 +72,7 @@ export const Register = () => {
                     required
                 />
                 <br /><br />
-                <Button color="" onClick={handleRegister} variant="contained">Register</Button>
+                <Button onClick={handleRegister} variant="contained">Register</Button>
                 <br /><br />
             </Paper>
         </div>

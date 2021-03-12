@@ -71,7 +71,7 @@ export const Login = () => {
                     required
                 />
                 <br /><br />
-                <Button color="rgba(156, 163, 175, 1)" onClick={handleLogin} variant="contained">Log In</Button>
+                <Button onClick={handleLogin} variant="contained">Log In</Button>
                 <br /><br />
                 
             </Paper>

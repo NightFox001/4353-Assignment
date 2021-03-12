@@ -6,12 +6,12 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { Header } from '../components/Header'
 import Select from '@material-ui/core/Select';
-import { InputLabel } from "@material-ui/core";
-import { useAuth } from "../hooks/authentication";
+import { InputLabel, FormControl } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: theme.spacing(2),
+        padding: theme.spacing(2),
+        color: "rgba(156, 163, 175, 1)",
   },
 }));
 
@@ -100,17 +100,17 @@ const Profile = () => {
 
     
     return (
-        <div class='bg-gray-400 bg-opacity-90 overflow-auto h-screen'>
+        <div className='bg-gray-400 bg-opacity-90 overflow-auto h-screen'>
             <Header />
             <div>
-                <div class='m-14 pl-8 bg-gray-100 rounded-md '> 
+                <div className='m-14 p-8 bg-gray-100 rounded-md '> 
                     {!!error && <p>{error}</p>}
-                    <form className={classes.root}>
+                    <form>
                         <TextField 
                             disabled={disabled}
                             label="Full Name"
                             type="text"
-                            margin="normal"
+                            margin="none"
                             value={fullName}
                             onChange={(fullName) => setFullName(fullName.target.value)}
                             required
@@ -120,7 +120,7 @@ const Profile = () => {
                             disabled={disabled}
                             label="Address line 1"
                             type="text"
-                            margin="normal"
+                            margin="none"
                             value={address1}
                             onChange={(address1) => setAddress1(address1.target.value)}
                             required
@@ -130,7 +130,7 @@ const Profile = () => {
                             disabled={disabled}
                             label="Address line 2"
                             type="text"
-                            margin="normal"
+                            margin="none"
                             value={address2}
                             onChange={(address2) => setAddress2(address2.target.value)}
                             
@@ -140,7 +140,7 @@ const Profile = () => {
                             disabled={disabled}
                             label="City"
                             type="text"
-                            margin="normal"
+                            margin="none"
                             value={city}
                             onChange={(city) => setCity(city.target.value)}
                             required
@@ -151,7 +151,7 @@ const Profile = () => {
                             disabled={disabled}
                             label='State'
                             type='text'
-                            margin='normal'
+                            margin='none'
                             value={state}
                             inputProps={{
                                 name: 'state',
@@ -217,15 +217,15 @@ const Profile = () => {
                             disabled={disabled}
                             label="Zipcode"
                             type="text"
-                            margin="normal"
+                            margin="none"
                             value={zipcode}
                             onChange={(zipcode) => setZipcode(zipcode.target.value)}
                             required
                             />
                             <br /><br />
                             {editing ? 
-                            <Button color="rgba(156, 163, 175, 1)" onClick={handleSave} variant="contained">Save</Button>
-                            : <Button color="rgba(156, 163, 175, 1)" onClick={handleEdit} variant="contained">Edit</Button>}
+                            <Button onClick={handleSave} variant="contained">Save</Button>
+                            : <Button onClick={handleEdit} variant="contained">Edit</Button>}
                             
                         <br/><br/>
                             

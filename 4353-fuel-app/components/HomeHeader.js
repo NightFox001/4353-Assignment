@@ -25,31 +25,31 @@ export const HomeHeader = () => {
 
   return (
     <>
-        <div class='text-white bg-gray-900 bg-opacity-80 w-full overflow-auto'>
-            <div class='text-7xl p-6'>Fuel Source</div>
-            <div class='flex bg-opacity-70 text-1xl bg-gray-500 overflow-auto'>
+        <div className='text-white bg-gray-900 bg-opacity-80 w-full overflow-auto'>
+            <div className='text-7xl p-6'>Fuel Source</div>
+            <div className='flex bg-opacity-70 text-1xl bg-gray-500 overflow-auto'>
                 <button 
-                    class="flex-1 hover:bg-gray-700 p-3 text-xl block w-full" 
+                    className="flex-1 hover:bg-gray-700 p-3 text-xl block w-full" 
                     onClick={goToHome}>
                         Home
                 </button>
                 <button 
-                    class="flex-1 hover:bg-gray-700 p-3 text-xl block w-full" 
+                    className="flex-1 hover:bg-gray-700 p-3 text-xl block w-full" 
                     onClick={goToAbout}>
                         About
                 </button>
                 <button 
-                    class="flex-1 hover:bg-gray-700 p-3 text-xl block w-full" 
+                    className="flex-1 hover:bg-gray-700 p-3 text-xl block w-full" 
                     onClick={handlePlanning}>
                         Planning
                 </button>
                 <button 
-                    class="flex-1 hover:bg-gray-700 p-3 text-xl block w-full" 
+                    className="flex-1 hover:bg-gray-700 p-3 text-xl block w-full" 
                     onClick={goToDiagrams}>
                         Diagrams
                 </button>
                 <button 
-                    class="flex-1 hover:bg-gray-700 p-3 text-xl block w-full" 
+                    className="flex-1 hover:bg-gray-700 p-3 text-xl block w-full" 
                     onClick={goToReadMe}>
                         ReadMe
                 </button>

@@ -13,11 +13,11 @@ const Home = () => {
     return (
         <div className='bg-gray-400 bg-opacity-90 h-screen'>
             <HomeHeader/>
-            <div class='flex m-6 mt-14 space-x-4'>
-                <div class='flex-1'>
+            <div className='flex m-6 mt-14 space-x-4'>
+                <div className='flex-1'>
                     <Login />
                 </div>
-                <div class='flex-1'>
+                <div className='flex-1'>
                     <Register />
                 </div>
             </div>
