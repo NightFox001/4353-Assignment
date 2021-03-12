@@ -1,51 +1,44 @@
 // import { connection, Sequelize } from '../../models'
+//const {getQuoteDB} = require('./mockDBs')
 
 
 const handler = async (req, res) => {
 	let gallons = null
-	const custid = req.query?.custid
+	const id = req.query?.id
 
-    const getQuoteDB = [
-        {
-            custid: "1",
-            quotes: [
-                {
-                    quote_id: "1",
-                    delivery_address : 250,
+	const getQuoteDB = {
+		1: {
+			id: 1,
+			gallonsReq: gallonsReq,
+			date: date
+	 	},
+		2: {
+			id: 2,
+			gallonsReq: gallonsReq,
+			date: date
+		},
+		3: {
+			id: 3,
+			gallonsReq: gallonsReq,
+			date: date
+		},
+	}
 
-                },
-                {
-                    quote_id: "2",
-                },
-                {
-                    quote_id: "3",
-                },
-                {
-                    quote_id: "4",
-                }
-            ]
-        }
-    ]
 
-    try {
-        // Get the quotes with the matching customer id from the DB
-        console.log(`Attempting to get quote history with custid = ${custid}`)
-        for(let i = 0; i < getQuoteDB.length; i++) {
-            console.log(getQuoteDB[i].custid)
-            if(getQuoteDB[i].custid === custid) {
-                console.log('Customer found')
-                gallons = getQuoteDB[i].quotes
-            }
-        }
-		if(!gallons) {
-            return res.status(404).json({message: "No quote history found"})
-        }
-    } 
-	 catch(error)
-	{
+	try {
+		console.log("Getting fuel quote... id: "+ id + "\n")
+		if (!getQuoteDB[id]) {
+			return res.status(400).json({ message: "fuel quote not found with userID" })
+		} 
+	
+		console.log("Fuel Quote found!\n")
+		gallons = getQuoteDB[id]
+		console.log(gallons)
+		return res.status(200).json(gallons)
+
+	} catch(error) {
 		return res.status(403).json({ message: error.message })
 	}
-	return res.json(gallons[0])
 }
 
 export default handler

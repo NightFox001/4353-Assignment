@@ -2,7 +2,7 @@ const {quoteHistoryDB} = require('./mockDBs')
 
 const handler = async (req, res) => {
     var history = []
-    const custId = req.query?.id
+    const id = req.query?.id
 
     // Mock quote history data
     // In reality, each quote entry would have its own custid column, but we simplify things here for the sake of testing

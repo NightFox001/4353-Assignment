@@ -7,45 +7,58 @@ import { Header } from '../components/Header';
 import { useRouter } from "next/router";
 import { useState } from 'react'
 import Button from '@material-ui/core/Button';
+import axios from 'axios'
 
 const getQuote = () => {
-  const router = useRouter();
-  const [date, setDate] = useState();
-  const [address1, setAddres1] = useState('');
-  const [address2, setAddres2] = useState('');
-  const [custid, setCustID] = useState("");
-  const [gallonsReq, setGallonsReq] = useState();
+  //const classes = useStyles()
+  const router = useRouter()
+
+  
+  const [error, setError] = useState("")
+  const [id, setId] = useState(null)
+  const [fullName, setFullName] = useState("")
+  const [address1, setAddress1] = useState("")
+  const [address2, setAddress2] = useState("")
+  const [gallonsReq, setGallonsReq] = useState('')
+  const [date, setDate] = useState('')
 
 
-  useEffect(() => {
-    const userString = localStorage.getItem("user")
-    if (!userString) {
+  useEffect(async() => {
+    const userId = localStorage.getItem("userId")
+    if (!userId) {
       console.log('not user found in getQuote')
       router.push('/home')
     } else {
       console.log('user found in getQuote')
-      const user = JSON.parse(userString)
+      const response = await axios.get(`/api/loadProfile?id=${userId}`);
+     // const responser = await axios.get(`/api/getquote?id=${userId}`)
+      const user = response.data
+     // const users = responser.data
+
       // console.log('made it!' + user)
       const address = String(user.address1 + String(user.address2 ?  ', ' + user.address2 : '') +', '+ user.city +', '+ user.state +', '+ user.zipcode)
-      setAddres1(address)
+      setAddress1(address)
       setGallonsReq(gallonsReq)
-      setCustID(user.custid)
+      setDate(date)
+      setId(id)
     }
   }, [])
 
-  const fuelQuote = async () => {
-    try {
-        const response = await axios.get(`/api/getquote?custid=${custid}`);
-        const jsonData = await response.json();
-        console.log("TESTING!")
-        console.log(jsonData)
-
-        console.log(jsonData)
-        return jsonData;
-    } catch (error) {
-        return (error)
-    }
-}
+  const sendData = async()=>
+  {
+    const userId = localStorage.getItem("userId")
+    if (!userId) {
+      console.log('not user found in getQuote')
+      router.push('/home')
+    } else {
+    axios.post('/api/getquote',{
+      gallonsReq: gallonsReq,
+      date: date,
+    })
+  }
+  console.log(gallonsReq)
+  console.log(date)
+  }
 
 
   return (
@@ -61,7 +74,7 @@ const getQuote = () => {
               <div>
                   Gallons Requested :
                   <br/>
-                  <input placeholder="Gallons" type='number' min="100" defaultValue={gallonsReq}></input>
+                  <input placeholder="Gallons" type='number' min="100" value = {gallonsReq} onChange={(gallonsReq) => setGallonsReq(gallonsReq.target.value)}></input>
               </div>
                 <br/>
                 <div>
@@ -93,7 +106,7 @@ const getQuote = () => {
                 <br/>
                 <textarea readOnly rows = "1" cols = "25" defaultValue="Total Cost"></textarea>
                 <br/><br/>
-                <Button color="rgba(156, 163, 175, 1)" variant="contained" defaultValue="Get Quote"></Button>
+                <Button onClick = {sendData} color="rgba(156, 163, 175, 1)" variant="contained" >Get Quote</Button>
                 <br/>
                 <br/>
               </div>
