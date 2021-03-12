@@ -7,44 +7,44 @@ const handler = async (req, res) => {
     const quoteHistoryDB = [
         {
             userId: 1,
-            quote_id: 11,
-            delivery_address : "address!",
-            date_requested: "date 1!",
-            date_delivered: "date 2!",
-            gallons: "gals!",
-            rate: "too much!",
-            total_price: "really high!"
-        },
-        {
-            userId: 1,
             quote_id: 12,
-            delivery_address : "address??",
-            date_requested: "date 3!",
-            date_delivered: "date 4!",
-            gallons: "gals??",
-            rate: "too much??",
-            total_price: "really high??"
+            delivery_address : "10880 Malibu Point",
+            date_requested: "1/11/2021",
+            date_delivered: "2/11/2021",
+            gallons: 200,
+            rate: 2,
+            total_price: 2000,
         },
         {
             userId: 1,
             quote_id: 13,
-            delivery_address : "address two electric boogaloo",
-            date_requested: "date 5!",
-            date_delivered: "date 6!",
-            gallons: "gals! gals! gals!",
-            rate: "too much! or not enough?",
-            total_price: "really high! or way to cheap?"
+            delivery_address : "10880 Malibu Point",
+            date_requested: "2/12/2021",
+            date_delivered: "3/12/2021",
+            gallons: 300,
+            rate: 3,
+            total_price: 3000,
         },
         {
             userId: 1,
             quote_id: 14,
-            delivery_address : "address the 4th, awakening",
-            date_requested: "date 7!",
-            date_delivered: "date 8!",
-            gallons: "gals! AND guys!",
-            rate: "way to low!",
-            total_price: "reasonable despite the rate!"
-        }
+            delivery_address : "10880 Malibu Point",
+            date_requested: "3/13/2021",
+            date_delivered: "4/13/2021",
+            gallons: 400 ,
+            rate: 4,
+            total_price: 4000
+        },
+        {
+            userId: 1,
+            quote_id: 15,
+            delivery_address : "10880 Malibu Point",
+            date_requested: "4/14/2021",
+            date_delivered: "5/14/2021",
+            gallons: 500,
+            rate: 5,
+            total_price: 5000,
+        },
     ]
 
     try {
