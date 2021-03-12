@@ -7,44 +7,54 @@ import { Header } from '../components/Header';
 import { useRouter } from "next/router";
 import { useState } from 'react'
 import Button from '@material-ui/core/Button';
+import axios from 'axios'
 
 const getQuote = () => {
-  const router = useRouter();
-  const [date, setDate] = useState();
-  const [address1, setAddres1] = useState('');
-  const [address2, setAddres2] = useState('');
-  const [custid, setCustID] = useState("");
-  const [gallonsReq, setGallonsReq] = useState();
+  //const classes = useStyles()
+  const router = useRouter()
+
+  
+  const [error, setError] = useState("")
+  const [id, setId] = useState(null)
+  const [fullName, setFullName] = useState("")
+  const [address1, setAddress1] = useState("")
+  const [address2, setAddress2] = useState("")
+  const [gallonsReq, setGallonsReq] = useState('')
+  const [date, setDate] = useState('')
 
 
-  useEffect(() => {
-    const userString = localStorage.getItem("user")
-    if (!userString) {
+  useEffect(async() => {
+    const userId = localStorage.getItem("userId")
+    if (!userId) {
       console.log('not user found in getQuote')
       router.push('/home')
     } else {
       console.log('user found in getQuote')
-      const user = JSON.parse(userString)
+      const response = await axios.get(`/api/loadProfile?id=${userId}`);
+      const user = response.data
       // console.log('made it!' + user)
       const address = String(user.address1 + String(user.address2 ?  ', ' + user.address2 : '') +', '+ user.city +', '+ user.state +', '+ user.zipcode)
-      setAddres1(address)
-      setGallonsReq(gallonsReq)
-      setCustID(user.custid)
+      setAddress1(address)
+      setId(id)
     }
   }, [])
 
   const fuelQuote = async () => {
-    try {
-        const response = await axios.get(`/api/getquote?custid=${custid}`);
-        const jsonData = await response.json();
-        console.log("TESTING!")
-        console.log(jsonData)
-
-        console.log(jsonData)
-        return jsonData;
-    } catch (error) {
-        return (error)
+    const userId = localStorage.getItem("userId")
+    if(userId)
+    {
+      const response = await axios.get(`/api/getquote?id=${userId}`)
+      const user = response.data
+      setGallonsReq(gallonsReq)
+      setDate(date)
+      setId(id)
     }
+    else{
+      console.log('not user found in getQuote')
+      router.push('/home')
+    }
+
+
 }
 
 
