@@ -103,8 +103,8 @@ const QuoteHistory = () => {
             <div className='m-14 pl-8 bg-gray-100 rounded-md'>
                 <div className='container mx-auto'>
                     {!!error && <p>{error}</p> /*If there is an error message (or the data is still loading), this displayes the appropriate message*/}
-                    {!loadingHistory && <Table columns={columns} data={data} /*Once the data is loaded, the table is created*//>}
-                    {!loadingHistory && data.map((quote) => (
+                    {!loadingHistory && <Table columns={columns} data={data} />}
+                    {!loadingHistory && data.map((quote) => (       /*Once the data is loaded, the table is created*/
                         <TableV2 key={quote.custId} quote={quote} />
                     ))}
                 </div>

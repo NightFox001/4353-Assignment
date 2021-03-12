@@ -26,11 +26,11 @@ export const TableV2 = ({ quote }) => {
         </div>
         <div className="mr-4 flex flex-col items-center">
           <div style={{ fontSize: 12, marginBottom: 5 }}>Rate</div>
-          <div>{quote.rate}</div>
+          <div>{`$${quote.rate}\gal`}</div>
         </div>
         <div className="mr-4 flex flex-col items-center">
           <div style={{ fontSize: 12, marginBottom: 5 }}>Total Cost</div>
-          <div>{quote.total_price}</div>
+          <div>{`$${quote.total_price}`}</div>
         </div>
       </div>
       <button
