@@ -9,18 +9,18 @@ const handler = async (req, res) => {
 	const getQuoteDB = {
 		1: {
 			id: 1,
-			gallonsReq: 200,
-			date: "12/20/2021"
+			gallonsReq: gallonsReq,
+			date: date
 	 	},
 		2: {
 			id: 2,
-			gallonsReq: 250,
-			date: "10/03/2021"
+			gallonsReq: gallonsReq,
+			date: date
 		},
 		3: {
 			id: 3,
-			gallonsReq: 300,
-			date: "11/28/2021"
+			gallonsReq: gallonsReq,
+			date: date
 		},
 	}
 
@@ -33,6 +33,7 @@ const handler = async (req, res) => {
 	
 		console.log("Fuel Quote found!\n")
 		gallons = getQuoteDB[id]
+		console.log(gallons)
 		return res.status(200).json(gallons)
 
 	} catch(error) {

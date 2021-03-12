@@ -31,31 +31,34 @@ const getQuote = () => {
     } else {
       console.log('user found in getQuote')
       const response = await axios.get(`/api/loadProfile?id=${userId}`);
+     // const responser = await axios.get(`/api/getquote?id=${userId}`)
       const user = response.data
+     // const users = responser.data
+
       // console.log('made it!' + user)
       const address = String(user.address1 + String(user.address2 ?  ', ' + user.address2 : '') +', '+ user.city +', '+ user.state +', '+ user.zipcode)
       setAddress1(address)
-      setId(id)
-    }
-  }, [])
-
-  const fuelQuote = async () => {
-    const userId = localStorage.getItem("userId")
-    if(userId)
-    {
-      const response = await axios.get(`/api/getquote?id=${userId}`)
-      const user = response.data
       setGallonsReq(gallonsReq)
       setDate(date)
       setId(id)
     }
-    else{
+  }, [])
+
+  const sendData = async()=>
+  {
+    const userId = localStorage.getItem("userId")
+    if (!userId) {
       console.log('not user found in getQuote')
       router.push('/home')
-    }
-
-
-}
+    } else {
+    axios.post('/api/getquote',{
+      gallonsReq: gallonsReq,
+      date: date,
+    })
+  }
+  console.log(gallonsReq)
+  console.log(date)
+  }
 
 
   return (
@@ -71,7 +74,7 @@ const getQuote = () => {
               <div>
                   Gallons Requested :
                   <br/>
-                  <input placeholder="Gallons" type='number' min="100" defaultValue={gallonsReq}></input>
+                  <input placeholder="Gallons" type='number' min="100" value = {gallonsReq} onChange={(gallonsReq) => setGallonsReq(gallonsReq.target.value)}></input>
               </div>
                 <br/>
                 <div>
@@ -103,7 +106,7 @@ const getQuote = () => {
                 <br/>
                 <textarea readOnly rows = "1" cols = "25" defaultValue="Total Cost"></textarea>
                 <br/><br/>
-                <Button color="rgba(156, 163, 175, 1)" variant="contained" defaultValue="Get Quote"></Button>
+                <Button onClick = {sendData} color="rgba(156, 163, 175, 1)" variant="contained" >Get Quote</Button>
                 <br/>
                 <br/>
               </div>
