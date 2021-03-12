@@ -35,28 +35,27 @@ const Profile = () => {
     
     useEffect( async () => {
         setError("")
-        // login api returns id for user to Login component
-        const userString = localStorage.getItem("userId")
-        console.log(userString)
-        if (!userString) {
+        // login api returns id for user to Login component, Login component saves id to local storage as "userId"
+        const userId = localStorage.getItem("userId")
+        console.log(userId)
+        if (!userId) {
             router.push('/home')
         } else { // get profile info from loadprofile
             try {
-                const response = await axios.get(`/api/loadProfile?id=${userString}`)
-                console.log("profile recieved: ")
+                const response = await axios.get(`/api/loadProfile?id=${userId}`)
+                console.log("profile recieved:")
                 console.log(response.data)
-                const data = response.data
-                setId(data.id)
-                setFullName(data.fullName)
-                setAddress1(data.address1)
-                setAddress2(data.address2)
-                setCity(data.city)
-                setState(data.state)
-                setZipcode(data.zipcode)
+
+                setId(response.data.id)
+                setFullName(response.data.fullName)
+                setAddress1(response.data.address1)
+                setAddress2(response.data.address2)
+                setCity(response.data.city)
+                setState(response.data.state)
+                setZipcode(response.data.zipcode)
             } catch (error) {
                 return setError(error.response?.data?.message || "There was an issue loading profile")
             }
-            // console.log(userString)
         }
       }, [editing])
 
@@ -66,6 +65,7 @@ const Profile = () => {
     }
 
     const handleSave = async () => {
+        setError("")
         const hasId = !!id
         const hasName = !!fullName && fullName.trim().length > 0
         const hasAddress1 = !!address1 && address1.trim().length > 0
@@ -73,7 +73,6 @@ const Profile = () => {
         const hasCity = !!city && city.trim().length > 0
         const hasState = !!state && state.trim().length > 0
         const hasZipcode = !!zipcode && zipcode.trim().length > 0
-        setError("")
         
         var  user = {}
         console.log(user)
