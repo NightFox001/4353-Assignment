@@ -35,7 +35,8 @@ const Profile = () => {
     
     useEffect( async () => {
         setError("")
-        const userString = localStorage.getItem("user")
+        // login api returns id for user to Login component
+        const userString = localStorage.getItem("userId")
         console.log(userString)
         if (!userString) {
             router.push('/home')
