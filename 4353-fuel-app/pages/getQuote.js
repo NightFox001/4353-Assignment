@@ -13,6 +13,8 @@ const getQuote = () => {
   const [date, setDate] = useState();
   const [address1, setAddres1] = useState('');
   const [address2, setAddres2] = useState('');
+  const [custid, setCustID] = useState("");
+  const [gallonsReq, setGallonsReq] = useState();
 
 
   useEffect(() => {
@@ -26,8 +28,24 @@ const getQuote = () => {
       // console.log('made it!' + user)
       const address = String(user.address1 + String(user.address2 ?  ', ' + user.address2 : '') +', '+ user.city +', '+ user.state +', '+ user.zipcode)
       setAddres1(address)
+      setGallonsReq(gallonsReq)
+      setCustID(user.custid)
     }
   }, [])
+
+  const fuelQuote = async () => {
+    try {
+        const response = await axios.get(`/api/getquote?custid=${custid}`);
+        const jsonData = await response.json();
+        console.log("TESTING!")
+        console.log(jsonData)
+
+        console.log(jsonData)
+        return jsonData;
+    } catch (error) {
+        return (error)
+    }
+}
 
 
   return (
@@ -43,7 +61,7 @@ const getQuote = () => {
               <div>
                   Gallons Requested :
                   <br/>
-                  <input placeholder="Gallons" type='number' min="1" defaultValue='1'></input>
+                  <input placeholder="Gallons" type='number' min="100" defaultValue={gallonsReq}></input>
               </div>
                 <br/>
                 <div>
