@@ -1,4 +1,5 @@
 // import { connection, Sequelize } from '../../models'
+const {customerDB} = require('./mockDBs')
 
 
 const handler = async (req, res) => {
@@ -6,7 +7,7 @@ const handler = async (req, res) => {
 	const id = req.query?.id
 
 	// mock data
-	const customerDB = {
+	/*const customerDB = {
 		1: {
 			id: 1,
 			username: "Ironman", 
@@ -40,7 +41,7 @@ const handler = async (req, res) => {
 			state: "NY",
 			zipcode: "12345",
 		},
-	}
+	}*/
  
 	try {
 		// get customer profile info from DB with userId that will eventually be provided from login

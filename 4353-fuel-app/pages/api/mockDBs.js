@@ -1,0 +1,80 @@
+const quoteHistoryDB = [
+        {
+            userId: 1,
+            quote_id: 12,
+            delivery_address : "10880 Malibu Point",
+            date_requested: "1/11/2021",
+            date_delivered: "2/11/2021",
+            gallons: 200,
+            rate: 2,
+            total_price: 2000,
+        },
+        {
+            userId: 1,
+            quote_id: 13,
+            delivery_address : "10880 Malibu Point",
+            date_requested: "2/12/2021",
+            date_delivered: "3/12/2021",
+            gallons: 300,
+            rate: 3,
+            total_price: 3000,
+        },
+        {
+            userId: 1,
+            quote_id: 14,
+            delivery_address : "10880 Malibu Point",
+            date_requested: "3/13/2021",
+            date_delivered: "4/13/2021",
+            gallons: 400 ,
+            rate: 4,
+            total_price: 4000
+        },
+        {
+            userId: 1,
+            quote_id: 15,
+            delivery_address : "10880 Malibu Point",
+            date_requested: "4/14/2021",
+            date_delivered: "5/14/2021",
+            gallons: 500,
+            rate: 5,
+            total_price: 5000,
+        },
+    ]
+
+const customerDB = {
+    1: {
+        id: 1,
+        username: "Ironman", 
+        password: "iamironman",
+        fullName: "Tony Stark",
+        address1: "10880 Malibu Point",
+        address2: "",
+        city: "Malibu",
+        state: "CA",
+        zipcode: "90265",
+     },
+    2: {
+        id: 2,
+        username: "Thor", 
+        password: "strongestavenger",
+        fullName: "Thor Odinson",
+        address1: "1234 rd",
+        address2: "",
+        city: "Asgard",
+        state: "AG",
+        zipcode: "11111",
+    },
+    3: {
+        id: 3,
+        username: "Spiderman", 
+        password: "nowayhome",
+        fullName: "Peter Parker",
+        address1: "1234 Queens rd",
+        address2: "",
+        city: "New York City",
+        state: "NY",
+        zipcode: "12345",
+    },
+}
+
+module.exports = {quoteHistoryDB, customerDB}
