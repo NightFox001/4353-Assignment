@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { makeStyles } from '@material-ui/core/styles';
 import { Header } from '../components/Header'
 import Table from '../components/Table'
+import { Quotebox } from '../components/TableV2'
 import Alert from "@material-ui/lab/Alert";
 import axios from "axios";
 
@@ -103,6 +104,9 @@ const QuoteHistory = () => {
                 <div className='container mx-auto'>
                     {!!error && <p>{error}</p> /*If there is an error message (or the data is still loading), this displayes the appropriate message*/}
                     {!loadingHistory && <Table columns={columns} data={data} /*Once the data is loaded, the table is created*//>}
+                    {!loadingHistory && data.map((quote) => (
+                        <Quotebox key={quote.custId} quote={quote} />
+                    ))}
                 </div>
             </div>
         </div>

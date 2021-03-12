@@ -20,7 +20,7 @@ const Profile = () => {
     const classes = useStyles()
     const router = useRouter()
 
-    
+
     const [error, setError] = useState("")
     const [id, setId] = useState(null)
     const [fullName, setFullName] = useState("")
@@ -102,10 +102,13 @@ const Profile = () => {
         setEditing(false)
         try {
             console.log('saving user...')
-            localStorage.removeItem('user')
-            localStorage.setItem("user", JSON.stringify(user))
-            console.log(user)
+            // localStorage.removeItem('user')
+            // localStorage.setItem("user", JSON.stringify(user))
+            // console.log(user)
+
+            const response = await axios.post()
             console.log('user saved!')
+            
         } catch (error) {
             return setError(error.response?.data?.message || "There was an issue saving your info.")
         }
