@@ -1,10 +1,12 @@
+const {quoteHistoryDB} = require('./mockDBs')
+
 const handler = async (req, res) => {
     var history = []
     const custId = req.query?.id
 
     // Mock quote history data
     // In reality, each quote entry would have its own custid column, but we simplify things here for the sake of testing
-    const quoteHistoryDB = [
+    /*const quoteHistoryDB = [
         {
             userId: 1,
             quote_id: 11,
@@ -45,7 +47,7 @@ const handler = async (req, res) => {
             rate: "way to low!",
             total_price: "reasonable despite the rate!"
         }
-    ]
+    ]*/
 
     try {
         // Get the quotes with the matching customer id from the DB
