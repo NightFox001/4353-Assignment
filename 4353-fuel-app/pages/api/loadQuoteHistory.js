@@ -9,10 +9,10 @@ const handler = async (req, res) => {
 
     try {
         // Get the quotes with the matching customer id from the DB
-        console.log(`Attempting to get quote history with custid = ${custId}`)
+        console.log(`Attempting to get quote history with custid = ${id}`)
         for(let i = 0; i < quoteHistoryDB.length; i++) {
-            if(quoteHistoryDB[i].userId == custId) {
-                console.log(`Found a quote for user ${custId}`)
+            if(quoteHistoryDB[i].userId == id) {
+                console.log(`Found a quote for user ${id}`)
                 history.push(quoteHistoryDB[i])
             }
         }
@@ -28,7 +28,7 @@ const handler = async (req, res) => {
 
 
     } catch (err) {
-        return res.status(403).json({message: error.message})
+        return res.status(403).json({message: err.message})
     }
 }
 
