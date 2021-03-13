@@ -26,7 +26,7 @@ export const Quotebox = ({ quote }) => {
         </div>
         <div className="mr-4 flex flex-col items-center">
           <div style={{ fontWeight: 700, fontSize: 12, marginBottom: 5 }}>Rate</div>
-          <div>{`$${quote.rate}\gal`}</div>
+          <div>{`$${quote.rate}/gal`}</div>
         </div>
         <div className="mr-4 flex flex-col items-center">
           <div style={{ fontWeight: 700, fontSize: 12, marginBottom: 5 }}>Total Cost</div>
