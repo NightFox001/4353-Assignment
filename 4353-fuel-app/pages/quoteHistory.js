@@ -21,6 +21,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/*async function getQuoteHistory(userId) {
+    console.log(`attempting to load data for user ${userId}`)
+    const response = await axios.get(`/api/loadQuoteHistory?id=${userId}`)
+    console.log(JSON.stringify(response.data))
+
+    return [response.data]
+}*/
+
 // When we have implemented a user being logged in, it will check that a user IS logged in
 //   before attempting to contact the server to get the quote history.
 // Also, when the user is logged in, relevant identifying information will be sent to the 
@@ -111,5 +119,7 @@ const QuoteHistory = () => {
         </div>
     )
 }
+
+//module.exports = getQuoteHistory
 
 export default QuoteHistory

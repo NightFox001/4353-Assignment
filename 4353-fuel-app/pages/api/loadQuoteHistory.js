@@ -23,7 +23,7 @@ const handler = async (req, res) => {
         }
 
         console.log("Quote history found")
-        console.log(history)
+        //console.log(history)
         return res.status(200).json(history)
 
 

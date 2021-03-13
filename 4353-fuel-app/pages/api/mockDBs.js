@@ -39,6 +39,16 @@ const quoteHistoryDB = [
             rate: 5,
             total_price: 5000,
         },
+        {
+            userId: 2,
+            quote_id: 16,
+            delivery_address : "1234 rd",
+            date_requested: "4/14/2021",
+            date_delivered: "5/14/2021",
+            gallons: 500,
+            rate: 5,
+            total_price: 2500,
+        }
     ]
 
 const customerDB = {
