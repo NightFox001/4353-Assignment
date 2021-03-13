@@ -1,6 +1,8 @@
 // import { connection, Sequelize } from '../../models'
 //const {getQuoteDB} = require('./mockDBs')
 
+import getQuote from "../getQuote"
+
 
 const handler = async (req, res) => {
 	let gallons = null
@@ -9,21 +11,20 @@ const handler = async (req, res) => {
 	const getQuoteDB = {
 		1: {
 			id: 1,
-			gallonsReq: gallonsReq,
-			date: date
+			gallonsReq: 900,
+			date: 'mm/dd/yyyy'
 	 	},
 		2: {
 			id: 2,
-			gallonsReq: gallonsReq,
-			date: date
+			gallonsReq: 400,
+			date: '01/01/0101'
 		},
 		3: {
 			id: 3,
-			gallonsReq: gallonsReq,
-			date: date
+			gallonsReq: 600,
+			date: '02/12/2020'
 		},
 	}
-
 
 	try {
 		console.log("Getting fuel quote... id: "+ id + "\n")

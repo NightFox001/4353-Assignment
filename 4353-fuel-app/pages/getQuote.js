@@ -21,15 +21,17 @@ const getQuote = () => {
   const [address2, setAddress2] = useState("")
   const [gallonsReq, setGallonsReq] = useState('')
   const [date, setDate] = useState('')
+  const [ppg, setPPG] = useState();
+  const [total, setTotal] = useState();
 
 
   useEffect(async() => {
     const userId = localStorage.getItem("userId")
     if (!userId) {
-      console.log('not user found in getQuote')
+      console.log('not user found in loadProfile')
       router.push('/home')
     } else {
-      console.log('user found in getQuote')
+      console.log('user found in loadProfile')
       const response = await axios.get(`/api/loadProfile?id=${userId}`);
      // const responser = await axios.get(`/api/getquote?id=${userId}`)
       const user = response.data
@@ -38,29 +40,34 @@ const getQuote = () => {
       // console.log('made it!' + user)
       const address = String(user.address1 + String(user.address2 ?  ', ' + user.address2 : '') +', '+ user.city +', '+ user.state +', '+ user.zipcode)
       setAddress1(address)
-      setGallonsReq(gallonsReq)
-      setDate(date)
       setId(id)
     }
   }, [])
 
   const sendData = async()=>
   {
+    console.log(hold)
+      setId(id)
+      setDate(date)
+      setGallonsReq(gallonsReq)
+    console.log('hi')
     const userId = localStorage.getItem("userId")
     if (!userId) {
       console.log('not user found in getQuote')
       router.push('/home')
     } else {
-    axios.post('/api/getquote',{
-      gallonsReq: gallonsReq,
-      date: date,
-    })
+      console.log('im here')
+      const responser = await axios.get(`/api/getquote?id=${userId}`);
+      const user = responser.data
+      console.log('user found in getQuote')
+      // console.log('made it!' + user)
+      
+      
+    }
+  
   }
-  console.log(gallonsReq)
-  console.log(date)
-  }
-
-
+  var hold = gallonsReq
+  
   return (
     <>
       <div className='bg-gray-400 bg-opacity-90 overflow-auto h-screen'>
@@ -96,17 +103,17 @@ const getQuote = () => {
               </div>
               <br/>
               <div>
-                Price Per Gallon :
+              Price Per Gallon :
                 <br/>
-                <textarea readOnly type = 'number' rows = "1" cols = "25" defaultValue="P/G"></textarea>
+                <textarea readOnly placeholder = "$0.00" rows = "1" cols = "25"></textarea>
               </div>
               <br/>
               <div>
                 Total Amount : 
                 <br/>
-                <textarea readOnly rows = "1" cols = "25" defaultValue="Total Cost"></textarea>
+                <textarea readOnly placeholder = "$0.00" rows = "1" cols = "25"></textarea>
                 <br/><br/>
-                <Button onClick = {sendData} color="rgba(156, 163, 175, 1)" variant="contained" >Get Quote</Button>
+                <Button onClick = {sendData} variant="contained" >Get Quote</Button>
                 <br/>
                 <br/>
               </div>
@@ -116,6 +123,7 @@ const getQuote = () => {
       </div>
     </>
   );
+  
+  
 }
-
 export default getQuote;
