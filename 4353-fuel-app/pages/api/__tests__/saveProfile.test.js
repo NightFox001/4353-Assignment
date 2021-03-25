@@ -346,29 +346,4 @@ describe("saveProfile API", () => {
       });
     });
   });
-
-  //   it("Should return 400 if username is undefined", async () => {
-  //     req.query.username = undefined;
-  //     const response = await handler(req, res);
-  //     expect(res.status).toBeCalledWith(400);
-  //     expect(res.json).toBeCalledWith({
-  //       message: "Username or Password not defined",
-  //     });
-  //   });
-
-  //   it("Should return 400 if password is undefined", async () => {
-  //     req.query.password = undefined;
-  //     const response = await handler(req, res);
-  //     expect(res.status).toBeCalledWith(400);
-  //     expect(res.json).toBeCalledWith({
-  //       message: "Username or Password not defined",
-  //     });
-  //   });
-
-  //   it("Should return 200 and message if account is created", async () => {
-  //     req.query.username = "JohnSmithUniqueNameForTesting";
-  //     const response = await handler(req, res);
-  //     expect(res.status).toBeCalledWith(200);
-  //     expect(res.json).toBeCalledWith({ message: "Account Created!" });
-  //   });
 });

@@ -16,10 +16,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function sum(x, y) {
-  return x + y;
-}
-
 export const Login = () => {
   const classes = useStyles();
   const router = useRouter();
