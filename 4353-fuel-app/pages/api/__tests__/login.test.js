@@ -1,4 +1,4 @@
-import login from "../login";
+import handler from "../login";
 
 describe("Login API", () => {
   let req;
@@ -21,13 +21,13 @@ describe("Login API", () => {
 
   it("Should return 405 if method is not GET", async () => {
     req.method = "POST";
-    const response = await login(req, res);
+    const response = await handler(req, res);
     expect(res.status).toBeCalledWith(405);
   });
 
   it("Should return 400 and message if username is not defined", async () => {
     req.query.username = undefined;
-    const response = await login(req, res);
+    const response = await handler(req, res);
     expect(res.status).toBeCalledWith(400);
     expect(res.json).toBeCalledWith({
       message: "Incorrect username or password",
@@ -36,7 +36,7 @@ describe("Login API", () => {
 
   it("Should return 400 and message if password is not defined", async () => {
     req.query.password = undefined;
-    const response = await login(req, res);
+    const response = await handler(req, res);
     expect(res.status).toBeCalledWith(400);
     expect(res.json).toBeCalledWith({
       message: "Incorrect username or password",
@@ -44,7 +44,7 @@ describe("Login API", () => {
   });
 
   it("Should return 200 and id if username and password match", async () => {
-    const response = await login(req, res);
+    const response = await handler(req, res);
     expect(res.status).toBeCalledWith(200);
     expect(res.json).toBeCalledTimes(1);
   });
