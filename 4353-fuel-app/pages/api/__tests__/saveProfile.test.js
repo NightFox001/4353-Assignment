@@ -277,7 +277,7 @@ describe("saveProfile API", () => {
 
       it("Should return 400 if Zipcode contains &", async () => {
         req.query.fullName = "Tony";
-        req.query.zipcode = "zipcode&name";
+        req.query.zipcode = "5432&";
         const response = await handler(req, res);
         expect(res.status).toBeCalledWith(400);
         expect(res.json).toBeCalledWith({
@@ -287,7 +287,7 @@ describe("saveProfile API", () => {
 
       it("Should return 400 if Zipcode contains /", async () => {
         req.query.fullName = "Tony";
-        req.query.zipcode = "houston/";
+        req.query.zipcode = "1234/";
         const response = await handler(req, res);
         expect(res.status).toBeCalledWith(400);
         expect(res.json).toBeCalledWith({
@@ -295,22 +295,53 @@ describe("saveProfile API", () => {
         });
       });
 
-      it("Should return 400 if Zipcode contains \\", async () => {
+      it("Should return 400 if Zipcode contains letter", async () => {
         req.query.fullName = "Tony";
-        req.query.zipcode = "houston\\";
+        req.query.zipcode = "1234h";
         const response = await handler(req, res);
         expect(res.status).toBeCalledWith(400);
         expect(res.json).toBeCalledWith({
           message: "Server Recieved Invalid Zipcode.",
         });
       });
-      it("Should return not return error if name contains a period", async () => {
+
+      it("Should return 400 if Zipcode contains 4 digits", async () => {
         req.query.fullName = "Tony";
-        req.query.zipcode = "St. Louis";
+        req.query.zipcode = "1234";
         const response = await handler(req, res);
         expect(res.status).toBeCalledWith(400);
         expect(res.json).toBeCalledWith({
           message: "Server Recieved Invalid Zipcode.",
+        });
+      });
+
+      it("Should return not return error if Zipcode contains 5 digits", async () => {
+        req.query.fullName = "Tony";
+        req.query.zipcode = "12345";
+        const response = await handler(req, res);
+        expect(res.status).toBeCalledWith(200);
+        expect(res.json).toBeCalledWith({
+          message: "Profile saved to DB",
+        });
+      });
+
+      it("Should return 400 if Zipcode contains 6 digits", async () => {
+        req.query.fullName = "Tony";
+        req.query.zipcode = "12345-6";
+        const response = await handler(req, res);
+        expect(res.status).toBeCalledWith(400);
+        expect(res.json).toBeCalledWith({
+          message: "Server Recieved Invalid Zipcode.",
+        });
+      });
+
+      it("Should return not return error if Zipcode contains 9 digits", async () => {
+        req.query.fullName = "Tony";
+        req.query.zipcode = "12345-6789";
+        const response = await handler(req, res);
+        expect(res.status).toBeCalledWith(200);
+        expect(res.json).toBeCalledWith({
+          message: "Profile saved to DB",
         });
       });
     });

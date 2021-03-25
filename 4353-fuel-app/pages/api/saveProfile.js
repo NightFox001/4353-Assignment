@@ -19,7 +19,7 @@ const handler = async (req, res) => {
   const invalidCity =
     !city?.length > 0 || /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/.test(city);
   const invalidState = state?.length !== 2 || !/^[a-zA-Z]+$/.test(state);
-  const invalidZipcode = !/\d\d\d\d\d(-\d\d\d\d)?/.test(zipcode);
+  const invalidZipcode = !/\d\d\d\d\d(-\d\d\d\d)?$/.test(zipcode);
 
   // 'validate' input second time in back-end
   if (!hasId) {
