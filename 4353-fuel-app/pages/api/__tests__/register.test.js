@@ -38,5 +38,4 @@ describe("Register API", () => {
     expect(res.status).toBeCalledWith(200);
     expect(res.json).toBeCalledWith({ message: "Account Created!" });
   });
-
-
+});
