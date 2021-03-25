@@ -19,6 +19,12 @@ const handler = async (req, res) => {
   const username = req.query?.username; //username entered by user
   const password = req.query?.password; //password entered by user
 
+  if (!username || !password) {
+    return res
+      .status(400)
+      .json({ message: "Username or Password not defined" });
+  }
+
   // check if entered username already exists
   for (var i = 0; i < customers.length; i++) {
     if (customers[i].customer_username === username) {

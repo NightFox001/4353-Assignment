@@ -32,7 +32,25 @@ describe("Register API", () => {
     expect(res.json).toBeCalledWith({ message: "Username is not available." });
   });
 
-  it("Should return 200 and message if username is taken", async () => {
+  it("Should return 400 and message if username is undefined", async () => {
+    req.query.username = undefined;
+    const response = await register(req, res);
+    expect(res.status).toBeCalledWith(400);
+    expect(res.json).toBeCalledWith({
+      message: "Username or Password not defined",
+    });
+  });
+
+  it("Should return 400 and message if password is undefined", async () => {
+    req.query.password = undefined;
+    const response = await register(req, res);
+    expect(res.status).toBeCalledWith(400);
+    expect(res.json).toBeCalledWith({
+      message: "Username or Password not defined",
+    });
+  });
+
+  it("Should return 200 and message if account is created", async () => {
     req.query.username = "JohnSmithUniqueNameForTesting";
     const response = await register(req, res);
     expect(res.status).toBeCalledWith(200);
