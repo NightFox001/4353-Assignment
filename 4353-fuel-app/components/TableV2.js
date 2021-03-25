@@ -6,7 +6,7 @@ export const Quotebox = ({ quote }) => {
   const [showLogs, setShowLogs] = useState(false)
 
   return (
-    <div className="relative bg-white mt-6 rounded-xl p-6 shadow-xl">
+    <div data-testid="quotebox" className="relative bg-white mt-6 rounded-xl p-6 shadow-xl">
       <div className="flex flex-row items-center justify-between">
         <div className="mr-4 flex flex-col items-center">
             <div style={{ fontWeight: 700, fontSize: 12, marginBottom: 5 }}>Address</div>
