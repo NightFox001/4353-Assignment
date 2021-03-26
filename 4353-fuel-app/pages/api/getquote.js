@@ -11,7 +11,7 @@ const handler = async (req, res) => {
 	const getQuoteDB = {
 		1: {
 			id: 1,
-			gallonsReq: 900,
+			gallonsReq: getQuote.hold,
 			date: 'mm/dd/yyyy'
 	 	},
 		2: {

@@ -57,9 +57,11 @@ const getQuote = () => {
       router.push('/home')
     } else {
       console.log('im here')
-      const responser = await axios.get(`/api/getquote?id=${userId}`);
+      const responser = await axios.post(`/api/getquote?id=${userId}`);
       const user = responser.data
       console.log('user found in getQuote')
+      const gals = user.gallonsReq
+      console.log(gals)
       // console.log('made it!' + user)
       
       
