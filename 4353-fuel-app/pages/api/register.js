@@ -12,11 +12,6 @@ const handler = async (req, res) => {
       .json({ message: "Username or Password not defined" });
   }
 
-  var customers = [
-    { customer_username: "Ironman" },
-    { customer_username: "Spiderman" },
-    { customer_username: "Thor" },
-  ];
   const username = req.query?.username; //username entered by user
   const password = req.query?.password; //password entered by user
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -33,12 +28,12 @@ const handler = async (req, res) => {
     if (response[0].length === 0) {
       try {
         // insert username/password into DB
-        connection.query(
+        await connection.query(
           `BEGIN;
         INSERT INTO user_credentials (username, hashed_password)
         VALUES ('${username}', '${hashedPassword}');`
         );
-        connection.query("COMMIT;");
+        await connection.query("COMMIT;");
         return res.status(200).json({ message: "Account Created!" });
       } catch (error) {
         connection.query(`ROLLBACK;`);
