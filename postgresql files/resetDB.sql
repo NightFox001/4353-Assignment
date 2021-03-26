@@ -23,7 +23,7 @@ CREATE TABLE user_credentials(
     hashed_password CHARACTER(64) NOT NULL,
     
     PRIMARY KEY(id),
-    CONSTRAINT username_min_length_check CHECK (length(usernamer) > 0) --unclear if we need this with NOT NULL, better safe than sorry
+    CONSTRAINT username_min_length_check CHECK (length(username) > 0) --unclear if we need this with NOT NULL, better safe than sorry
 );
 
 /*
@@ -58,6 +58,7 @@ CREATE TABLE fuelquotes(
     credentials_id INTEGER NOT NULL,
     gallons INTEGER NOT NULL,
     rate NUMERIC(5,2) NOT NULL,
+    total_price NUMERIC(13,2) NOT NULL,
     delivery_date DATE NOT NULL,
     delivery_address1 VARCHAR(100) NOT NULL,
     delivery_address2 VARCHAR(100),
@@ -70,6 +71,7 @@ CREATE TABLE fuelquotes(
     FOREIGN KEY(delivery_state) REFERENCES states(id),
     CONSTRAINT positive_gallons_check CHECK (gallons > 0),
     CONSTRAINT positive_rate_check CHECK (rate >= 0),
+    CONSTRAINT positive_total_price_check CHECK (total_price >= 0),
     CONSTRAINT delivery_zipcode_length_check CHECK (length(delivery_zipcode) >=5)
 );
 
