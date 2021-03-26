@@ -12,9 +12,9 @@ const handler = async (req, res) => {
       .json({ message: "Username or Password not defined" });
   }
 
-  const username = req.query?.username; //username entered by user
-  const password = req.query?.password; //password entered by user
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const username = req.query.username; //username entered by user
+  const hashedPassword = await bcrypt.hash(req.query.password, 10);
+  // console.log(hashedPassword);
 
   // check if entered username already exists
   try {

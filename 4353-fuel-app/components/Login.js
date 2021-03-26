@@ -41,7 +41,7 @@ export const Login = () => {
       const response = await axios.get(
         `/api/login?username=${username}&password=${password}`
       );
-      localStorage.setItem("userId", JSON.stringify(response.data));
+      localStorage.setItem("userToken", JSON.stringify(response.data));
       router.push("/");
     } catch (error) {
       return setError(
