@@ -23,7 +23,7 @@ CREATE TABLE client_information(
 
     PRIMARY KEY(client_id),
     FOREIGN KEY(client_state) REFERENCES states(state_id),
-    CONSTRAINT zipcode_length_check CHECK (length(client_zipcode) >=5)
+    CONSTRAINT client_zipcode_length_check CHECK (length(client_zipcode) >=5)
 );
 
 /*
@@ -62,7 +62,7 @@ CREATE TABLE fuelquote(
     FOREIGN KEY(delivery_state) REFERENCES states(state_id),
     CONSTRAINT positive_gallons_check CHECK (gallons > 0),
     CONSTRAINT positive_rate_check CHECK (rate >= 0),
-    CONSTRAINT zipcode_length_check CHECK (length(client_zipcode) >=5)
+    CONSTRAINT delivery_zipcode_length_check CHECK (length(client_zipcode) >=5)
 );
 
 -- Populate States Table
