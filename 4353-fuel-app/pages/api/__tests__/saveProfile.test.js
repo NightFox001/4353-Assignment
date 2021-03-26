@@ -4,6 +4,16 @@ describe("saveProfile API", () => {
   let req;
   let res;
 
+  const defaultQuery = {
+    id: "1",
+    fullName: "Tony Stark",
+    address1: "10880 Malibu Point",
+    address2: "",
+    city: "Malibu",
+    state: "CA",
+    zipcode: "90265",
+  };
+
   beforeEach(() => {
     req = {
       method: "POST",
@@ -247,6 +257,7 @@ describe("saveProfile API", () => {
     describe("Zipcode Input validation", () => {
       it("Should return 400 if Zipcode is undefined", async () => {
         req.query.fullName = "Tony";
+        req.query.address1 = "10880 Malibu Point";
         req.query.zipcode = undefined;
         const response = await handler(req, res);
         expect(res.status).toBeCalledWith(400);
@@ -257,6 +268,7 @@ describe("saveProfile API", () => {
 
       it("Should return 400 if Zipcode is empty string", async () => {
         req.query.fullName = "Tony";
+        req.query.address1 = "10880 Malibu Point";
         req.query.zipcode = "";
         const response = await handler(req, res);
         expect(res.status).toBeCalledWith(400);
@@ -267,6 +279,7 @@ describe("saveProfile API", () => {
 
       it("Should return 400 if Zipcode contains only white space", async () => {
         req.query.fullName = "Tony";
+        req.query.address1 = "10880 Malibu Point";
         req.query.zipcode = "  ";
         const response = await handler(req, res);
         expect(res.status).toBeCalledWith(400);
@@ -277,6 +290,7 @@ describe("saveProfile API", () => {
 
       it("Should return 400 if Zipcode contains &", async () => {
         req.query.fullName = "Tony";
+        req.query.address1 = "10880 Malibu Point";
         req.query.zipcode = "5432&";
         const response = await handler(req, res);
         expect(res.status).toBeCalledWith(400);
@@ -287,6 +301,7 @@ describe("saveProfile API", () => {
 
       it("Should return 400 if Zipcode contains /", async () => {
         req.query.fullName = "Tony";
+        req.query.address1 = "10880 Malibu Point";
         req.query.zipcode = "1234/";
         const response = await handler(req, res);
         expect(res.status).toBeCalledWith(400);
@@ -297,6 +312,7 @@ describe("saveProfile API", () => {
 
       it("Should return 400 if Zipcode contains letter", async () => {
         req.query.fullName = "Tony";
+        req.query.address1 = "10880 Malibu Point";
         req.query.zipcode = "1234h";
         const response = await handler(req, res);
         expect(res.status).toBeCalledWith(400);
@@ -307,6 +323,7 @@ describe("saveProfile API", () => {
 
       it("Should return 400 if Zipcode contains 4 digits", async () => {
         req.query.fullName = "Tony";
+        req.query.address1 = "10880 Malibu Point";
         req.query.zipcode = "1234";
         const response = await handler(req, res);
         expect(res.status).toBeCalledWith(400);
@@ -317,6 +334,7 @@ describe("saveProfile API", () => {
 
       it("Should return not return error if Zipcode contains 5 digits", async () => {
         req.query.fullName = "Tony";
+        req.query.address1 = "10880 Malibu Point";
         req.query.zipcode = "12345";
         const response = await handler(req, res);
         expect(res.status).toBeCalledWith(200);
@@ -327,6 +345,7 @@ describe("saveProfile API", () => {
 
       it("Should return 400 if Zipcode contains 6 digits", async () => {
         req.query.fullName = "Tony";
+        req.query.address1 = "10880 Malibu Point";
         req.query.zipcode = "12345-6";
         const response = await handler(req, res);
         expect(res.status).toBeCalledWith(400);
@@ -337,11 +356,24 @@ describe("saveProfile API", () => {
 
       it("Should return not return error if Zipcode contains 9 digits", async () => {
         req.query.fullName = "Tony";
+        req.query.address1 = "10880 Malibu Point";
         req.query.zipcode = "12345-6789";
         const response = await handler(req, res);
         expect(res.status).toBeCalledWith(200);
         expect(res.json).toBeCalledWith({
           message: "Profile saved to DB",
+        });
+      });
+    });
+
+    describe("Address Input validation?", () => {
+      it("Should return 400 if Address is undefined", async () => {
+        req.query.fullName = "Tony";
+        req.query.address1 = undefined;
+        const response = await handler(req, res);
+        expect(res.status).toBeCalledWith(400);
+        expect(res.json).toBeCalledWith({
+          message: "Server Recieved Invalid Address.",
         });
       });
     });

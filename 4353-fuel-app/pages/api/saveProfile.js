@@ -15,7 +15,9 @@ const handler = async (req, res) => {
   const hasAddress2 = !!address2 && address2.trim().length > 0;
 
   const invalidName =
-    !fullName || /[ `!@#$%^&*()_+\-=\[\]{};':."\\|,<>\/?~]/.test(fullName);
+    !fullName || /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/.test(fullName);
+  const invalidAddress =
+    !address1 || /[`!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/.test(address1);
   const invalidCity =
     !city?.length > 0 || /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/.test(city);
   const invalidState = state?.length !== 2 || !/^[a-zA-Z]+$/.test(state);
@@ -30,8 +32,10 @@ const handler = async (req, res) => {
   if (invalidName)
     return res.status(400).json({ message: "Server Recieved Invalid Name." });
 
-  if (!hasAddress1)
-    return res.status(400).json({ message: "Address is required." });
+  if (invalidAddress)
+    return res
+      .status(400)
+      .json({ message: "Server Recieved Invalid Address." });
   //   if (!hasAddress2) {} FIX
   //   if (!hasCity) return res.status(400).json({ message: "City is required." });
   if (invalidCity)
