@@ -1,73 +1,86 @@
-// import { connection, Sequelize } from '../../models'
-
+import { connection, Sequelize } from "../../models";
+require("dotenv").config();
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const handler = async (req, res) => {
-	var customer
-	const username = req.query?.username
-	const password = req.query?.password
+  if (req.method !== "GET") {
+    return res.status(405).end();
+  }
 
-	
-	const customerDB = [
-		{
-			id: 1,
-			username: "Ironman", 
-			password: "iamironman",
-			fullName: "Tony Stark",
-			address1: "10880 Malibu Point",
-			address2: "",
-			city: "Malibu",
-			state: "CA",
-			zipcode: "90265",
-	 	},
-		{
-			id: 2,
-			username: "Thor", 
-			password: "strongestavenger",
-			fullName: "Thor Odinson",
-			address1: "1234 rd",
-			address2: "",
-			city: "Asgard",
-			state: "AG",
-			zipcode: "11111",
-		},
-		{
-			id: 3,
-			username: "Spiderman", 
-			password: "nowayhome",
-			fullName: "Peter Parker",
-			address1: "1234 Queens rd",
-			address2: "",
-			city: "New York City",
-			state: "NY",
-			zipcode: "12345",
-		},
-	]
- 
-	try {
-		// get customer from DB with username = requested username
+  // FIXME add testing for this
+  if (!req.query?.username || !req.query?.password) {
+    return res
+      .status(400)
+      .json({ message: "Username or Password not defined" });
+  }
+  const username = req.query.username;
+  const password = req.query.password;
 
-		console.log('\ntrying to login with username = '+ username)
-		for (let i = 0; i < customerDB.length; i++) {
-			if (customerDB[i].username === username) {
-				console.log("Customer found!\n")
-				if (customerDB[i].password === password) {
-					console.log("Correct password!\n")
-					customer = customerDB[i]
-					console.log("the customer we found " + JSON.stringify(customer))
-					console.log("returning id: " + customer.id)
-					return res.json(customer.id)
-				}
-			}
-		}
+  // const customerDB = [
+  //   {
+  //     id: 1,
+  //     username: "Ironman",
+  //     password: "iamironman",
+  //     fullName: "Tony Stark",
+  //     address1: "10880 Malibu Point",
+  //     address2: "",
+  //     city: "Malibu",
+  //     state: "CA",
+  //     zipcode: "90265",
+  //   },
+  //   {
+  //     id: 2,
+  //     username: "Thor",
+  //     password: "strongestavenger",
+  //     fullName: "Thor Odinson",
+  //     address1: "1234 rd",
+  //     address2: "",
+  //     city: "Asgard",
+  //     state: "AG",
+  //     zipcode: "11111",
+  //   },
+  //   {
+  //     id: 3,
+  //     username: "Spiderman",
+  //     password: "nowayhome",
+  //     fullName: "Peter Parker",
+  //     address1: "1234 Queens rd",
+  //     address2: "",
+  //     city: "New York City",
+  //     state: "NY",
+  //     zipcode: "12345",
+  //   },
+  // ];
 
-		// check if a customer with that username exists
-		if (!customer) {
-			return res.status(400).json({ message: "Incorrect username or password" })
-		} 
+  // get customer from DB with username = requested username
+  try {
+    const customer = await connection.query(`
+    SELECT * 
+    FROM user_credentials
+    WHERE username = '${username}'`);
 
-	} catch(error) {
-		return res.status(403).json({ message: error.message })
-	}
-}
+    // check if customer exists with that username
+    if (
+      customer[0].length !== 0 &&
+      (await bcrypt.compare(password, customer[0][0]?.hashed_password.trim()))
+    ) {
+      // Customer found and passwprd is correct
+      // console.log("\nLogging in customer...");
+      // console.log(customer[0]);
 
-export default handler
+      // if username/password are valid, return token
+      const token = jwt.sign(username, process.env.ACCESS_TOKEN_SECRET);
+      // console.log("\n\ntoken: " + token);
+      return res.status(200).json(token);
+    }
+
+    return res
+      .status(400)
+      .json({ message: "Username or Password not defined" });
+  } catch (error) {
+    return res.status(403).json({ message: error.message });
+  }
+};
+
+export default handler;

@@ -1,8 +1,18 @@
+//import { connection, Sequelize } from '.../components/models'
 const {quoteHistoryDB} = require('./mockDBs')
 
 const handler = async (req, res) => {
+    // Should only be GET requests
+    if (req.method !== "GET") {
+        return res.status(405).end();
+    }
     var history = []
     const id = req.query?.id
+
+    // An id MUST be included
+    if (!id) {
+        return res.status(400).json({ message: "ID not defined" });
+    }
 
     // Mock quote history data
     // In reality, each quote entry would have its own custid column, but we simplify things here for the sake of testing
@@ -19,7 +29,7 @@ const handler = async (req, res) => {
 
         // If no quotes were found
         if(history.length == 0) {
-            return res.status(404).json({message: "No quote history found"})
+            return res.status(404).json({ message: "No quote history found" })
         }
 
         console.log("Quote history found")

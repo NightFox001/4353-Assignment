@@ -1,13 +1,12 @@
 // import { connection, Sequelize } from '../../models'
-const {customerDB} = require('./mockDBs')
-
+const { customerDB } = require("./mockDBs");
 
 const handler = async (req, res) => {
-	var customer = null
-	const id = req.query?.id
+  var customer = null;
+  const id = req.query?.id;
 
-	// mock data
-	/*const customerDB = {
+  // mock data
+  /*const customerDB = {
 		1: {
 			id: 1,
 			username: "Ironman", 
@@ -42,22 +41,23 @@ const handler = async (req, res) => {
 			zipcode: "12345",
 		},
 	}*/
- 
-	try {
-		// get customer profile info from DB with userId that will eventually be provided from login
 
-		console.log("Getting profile... id: "+ id + "\n")
-		if (!customerDB[id]) {
-			return res.status(400).json({ message: "Customer not found with userID" })
-		} 
-	
-		console.log("Customer profile found!\n")
-		customer = customerDB[id]
-		return res.status(200).json(customer)
+  try {
+    // get customer profile info from DB with userToken that will eventually be provided from login
 
-	} catch(error) {
-		return res.status(403).json({ message: error.message })
-	}
-}
+    console.log("Getting profile... id: " + id + "\n");
+    if (!customerDB[id]) {
+      return res
+        .status(400)
+        .json({ message: "Customer not found with userToken" });
+    }
 
-export default handler
+    console.log("Customer profile found!\n");
+    customer = customerDB[id];
+    return res.status(200).json(customer);
+  } catch (error) {
+    return res.status(403).json({ message: error.message });
+  }
+};
+
+export default handler;
