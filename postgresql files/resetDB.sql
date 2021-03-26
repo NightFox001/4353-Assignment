@@ -1,29 +1,16 @@
+DROP TABLE IF EXISTS fuelquotes;
+DROP TABLE IF EXISTS client_information;
+DROP TABLE IF EXISTS user_credentials;
+DROP TABLE IF EXISTS states;
+
 /*
     Stores a unique integer id numbered 1-50 for each two-letter state code.
     Ordered based on the date each state joined the union (easily extendable without
         re-organizing if/whenever a new state joins, as DC might do soon).
 */
 CREATE TABLE states(
-    state_id INTEGER NOT NULL UNIQUE,
+    id INTEGER NOT NULL UNIQUE,
     state_code CHARACTER(2) NOT NULL UNIQUE
-);
-
-/*
-    Stores all necessary client information and a unique integer id for each client to serve as the primary key.
-    For simplicity in this assignment/project, the client_id is a serial integer
-*/
-CREATE TABLE client_information(
-    client_id SERIAL NOT NULL,
-    client_name VARCHAR(50) NOT NULL,
-    client_address1 VARCHAR(100) NOT NULL,
-    client_address2 VARCHAR(100),
-    client_city VARCHAR(100) NOT NULL,
-    client_state INTEGER NOT NULL,
-    client_zipcode VARCHAR(9) NOT NULL,
-
-    PRIMARY KEY(client_id),
-    FOREIGN KEY(client_state) REFERENCES states(state_id),
-    CONSTRAINT client_zipcode_length_check CHECK (length(client_zipcode) >=5)
 );
 
 /*
@@ -31,11 +18,32 @@ CREATE TABLE client_information(
     If client information is deleted, their credentials are also deleted.
 */
 CREATE TABLE user_credentials(
-    client_id INTEGER NOT NULL,
-    credentials CHARACTER(64) NOT NULL,
+    id SERIAL NOT NULL UNIQUE,
+    username VARCHAR(30) NOT NULL UNIQUE,
+    hashed_password CHARACTER(64) NOT NULL,
     
-    PRIMARY KEY(client_id),
-    FOREIGN KEY(client_id) REFERENCES client_information(client_id) ON DELETE CASCADE
+    PRIMARY KEY(id),
+    CONSTRAINT username_min_length_check CHECK (length(usernamer) > 0) --unclear if we need this with NOT NULL, better safe than sorry
+);
+
+/*
+    Stores all necessary client information and a unique integer id for each client to serve as the primary key.
+    For simplicity in this assignment/project, the client_id is a serial integer
+*/
+CREATE TABLE client_information(
+    id SERIAL NOT NULL,
+    credentials_id INTEGER NOT NULL,
+    client_name VARCHAR(50) NOT NULL,
+    client_address1 VARCHAR(100) NOT NULL,
+    client_address2 VARCHAR(100),
+    client_city VARCHAR(100) NOT NULL,
+    client_state INTEGER NOT NULL,
+    client_zipcode VARCHAR(9) NOT NULL,
+
+    PRIMARY KEY(id),
+    FOREIGN KEY(credentials_id) REFERENCES user_credentials(id),
+    FOREIGN KEY(client_state) REFERENCES states(id),
+    CONSTRAINT client_zipcode_length_check CHECK (length(client_zipcode) >=5)
 );
 
 /*
@@ -45,9 +53,9 @@ CREATE TABLE user_credentials(
     The delivery address also stored for each quote using delivery versions of the address fields in client_information.
         This ensures that accurate records are stored for past quotes that were delivered to different addresses.
 */
-CREATE TABLE fuelquote(
-    quote_id SERIAL NOT NULL,
-    client_id INTEGER NOT NULL,
+CREATE TABLE fuelquotes(
+    id SERIAL NOT NULL,
+    credentials_id INTEGER NOT NULL,
     gallons INTEGER NOT NULL,
     rate NUMERIC(5,2) NOT NULL,
     delivery_date DATE NOT NULL,
@@ -57,12 +65,12 @@ CREATE TABLE fuelquote(
     delivery_state INTEGER NOT NULL,
     delivery_zipcode VARCHAR(9) NOT NULL,
 
-    PRIMARY KEY(quote_id),
-    FOREIGN KEY(client_id) REFERENCES client_information(client_id),
-    FOREIGN KEY(delivery_state) REFERENCES states(state_id),
+    PRIMARY KEY(id),
+    FOREIGN KEY(credentials_id) REFERENCES user_credentials(id),
+    FOREIGN KEY(delivery_state) REFERENCES states(id),
     CONSTRAINT positive_gallons_check CHECK (gallons > 0),
     CONSTRAINT positive_rate_check CHECK (rate >= 0),
-    CONSTRAINT delivery_zipcode_length_check CHECK (length(client_zipcode) >=5)
+    CONSTRAINT delivery_zipcode_length_check CHECK (length(delivery_zipcode) >=5)
 );
 
 -- Populate States Table
