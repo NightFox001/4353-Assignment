@@ -6,7 +6,7 @@ const handler = async (req, res) => {
     return res.status(405).end();
   }
 
-  if (!username || !password) {
+  if (!req.query?.username || !req.query?.password) {
     return res
       .status(400)
       .json({ message: "Username or Password not defined" });
