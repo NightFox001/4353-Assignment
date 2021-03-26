@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.82% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/22</span>
+                <span class='fraction'>12/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>7/8</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.82% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/22</span>
+                <span class='fraction'>12/20</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -111,44 +111,42 @@
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -181,9 +179,9 @@ const handler = async (req, res) =&gt; {
       .json({ message: "Username or Password not defined" });
   }
 &nbsp;
-  const username = req.query?.username; //username entered by user
-  const password = req.query?.password; //password entered by user
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const username = req.query.username; //username entered by user
+  const hashedPassword = await bcrypt.hash(req.query.password, 10);
+  // console.log(hashedPassword);
 &nbsp;
   // check if entered username already exists
   try {
@@ -191,19 +189,18 @@ const handler = async (req, res) =&gt; {
     SELECT * 
     FROM user_credentials
     WHERE username = '${username}'`);
-    console.log("Users matching that username" + response[0]);
 &nbsp;
     // check if customer exists with that username
-    if (response[0].length === 0) {
-      try {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (response[0].length === 0) {
+<span class="cstat-no" title="statement not covered" >      try {</span>
         // insert username/password into DB
-        await connection.query(
+<span class="cstat-no" title="statement not covered" >        await connection.query(</span>
           `BEGIN;
         INSERT INTO user_credentials (username, hashed_password)
         VALUES ('${username}', '${hashedPassword}');`
         );
-        await connection.query("COMMIT;");
-        return res.status(200).json({ message: "Account Created!" });
+<span class="cstat-no" title="statement not covered" >        await connection.query("COMMIT;");</span>
+<span class="cstat-no" title="statement not covered" >        return res.status(200).json({ message: "Account Created!" });</span>
       } catch (error) {
 <span class="cstat-no" title="statement not covered" >        connection.query(`ROLLBACK;`);</span>
 <span class="cstat-no" title="statement not covered" >        console.log(</span>
@@ -229,7 +226,7 @@ export default handler;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Mar 26 2021 14:24:03 GMT-0500 (Central Daylight Time)
+                at Fri Mar 26 2021 16:01:46 GMT-0500 (Central Daylight Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

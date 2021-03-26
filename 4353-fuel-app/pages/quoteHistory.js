@@ -21,9 +21,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-/*async function getQuoteHistory(userId) {
-    console.log(`attempting to load data for user ${userId}`)
-    const response = await axios.get(`/api/loadQuoteHistory?id=${userId}`)
+/*async function getQuoteHistory(userToken) {
+    console.log(`attempting to load data for user ${userToken}`)
+    const response = await axios.get(`/api/loadQuoteHistory?id=${userToken}`)
     console.log(JSON.stringify(response.data))
 
     return [response.data]
@@ -45,16 +45,18 @@ const QuoteHistory = () => {
   useEffect(async () => {
     // Indicate that quote history is being loaded (to prevent the table from being created with nothing, causing errors)
     setLoadingHistory(true);
-    // Retrieve the userId from local storage
-    const userId = localStorage.getItem("userId");
-    if (!userId) {
-      // If no userId was found, redirect to the home page
+    // Retrieve the userToken from local storage
+    const userToken = localStorage.getItem("userToken");
+    if (!userToken) {
+      // If no userToken was found, redirect to the home page
       router.push("/home");
     } else {
       // Attempt to load quote history from loadQuoteHistory
       try {
         console.log("Loading quote history...");
-        const response = await axios.get(`/api/loadQuoteHistory?id=${userId}`);
+        const response = await axios.get(
+          `/api/loadQuoteHistory?id=${userToken}`
+        );
 
         setQuoteHistory(response.data);
         console.log("Quote history loaded.");

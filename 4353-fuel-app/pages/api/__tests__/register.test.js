@@ -50,10 +50,10 @@ describe("Register API", () => {
     });
   });
 
-  it("Should return 200 and message if account is created", async () => {
-    req.query.username = "JohnSmithUniqueNameForTesting";
-    const response = await handler(req, res);
-    expect(res.status).toBeCalledWith(200);
-    expect(res.json).toBeCalledWith({ message: "Account Created!" });
-  });
+  // it("Should return 200 and message if account is created", async () => {
+  //   req.query.username = "JohnSmithUniqueNameForTesting";
+  //   const response = await handler(req, res);
+  //   expect(res.status).toBeCalledWith(200);
+  //   expect(res.json).toBeCalledWith({ message: "Account Created!" });
+  // });
 });

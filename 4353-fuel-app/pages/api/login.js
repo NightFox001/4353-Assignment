@@ -1,4 +1,5 @@
 import { connection, Sequelize } from "../../models";
+require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -71,10 +72,12 @@ const handler = async (req, res) => {
       // if username/password are valid, return token
       const token = jwt.sign(username, process.env.ACCESS_TOKEN_SECRET);
       // console.log("\n\ntoken: " + token);
-      return res.status(200).json(customer[0].id);
+      return res.status(200).json(token);
     }
 
-    return res.status(400).json({ message: "Incorrect username or password" });
+    return res
+      .status(400)
+      .json({ message: "Username or Password not defined" });
   } catch (error) {
     return res.status(403).json({ message: error.message });
   }

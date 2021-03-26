@@ -1,18 +1,18 @@
-import { useState, useEffect } from "react"
-import { useRouter } from "next/router"
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 export const useAuth = () => {
-  const router = useRouter()
-  const [user, setUser] = useState(null)
+  const router = useRouter();
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const userString = localStorage.getItem("userId")
+    const userString = localStorage.getItem("userToken");
     if (!userString) {
-      return router.push("/home")
+      return router.push("/home");
     }
-    setUser(JSON.parse(userString))
-    return router.push("/profile")
-    }, [])
+    setUser(JSON.parse(userString));
+    return router.push("/profile");
+  }, []);
 
-  return user
-}
+  return user;
+};

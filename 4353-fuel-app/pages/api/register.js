@@ -22,7 +22,6 @@ const handler = async (req, res) => {
     SELECT * 
     FROM user_credentials
     WHERE username = '${username}'`);
-    console.log("Users matching that username" + response[0]);
 
     // check if customer exists with that username
     if (response[0].length === 0) {
