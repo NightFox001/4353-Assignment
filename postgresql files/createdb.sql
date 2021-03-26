@@ -13,7 +13,7 @@ CREATE TABLE states(
     For simplicity in this assignment/project, the client_id is a serial integer
 */
 CREATE TABLE client_information(
-    client_id SERIAL INTEGER NOT NULL,
+    client_id SERIAL NOT NULL,
     client_name VARCHAR(50) NOT NULL,
     client_address1 VARCHAR(100) NOT NULL,
     client_address2 VARCHAR(100),
@@ -46,7 +46,7 @@ CREATE TABLE user_credentials(
         This ensures that accurate records are stored for past quotes that were delivered to different addresses.
 */
 CREATE TABLE fuelquote(
-    quote_id SERIAL INTEGER NOT NULL,
+    quote_id SERIAL NOT NULL,
     client_id INTEGER NOT NULL,
     gallons INTEGER NOT NULL,
     rate NUMERIC(5,2) NOT NULL,
