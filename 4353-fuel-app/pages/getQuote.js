@@ -22,6 +22,9 @@ const getQuote = () => {
   const [date, setDate] = useState("");
   const [ppg, setPPG] = useState();
   const [total, setTotal] = useState();
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zipcode, setZipcode] = useState("")
 
   useEffect(async () => {
     const userToken = localStorage.getItem("userToken");
@@ -30,7 +33,7 @@ const getQuote = () => {
       router.push("/home");
     } else {
       console.log("user found in loadProfile");
-      const response = await axios.get(`/api/loadProfile?id=${userToken}`);
+      const response = await axios.get(`/api/loadProfile?token=${userToken}`);
       // const responser = await axios.get(`/api/getquote?id=${userToken}`)
       const user = response.data;
       // const users = responser.data
@@ -52,25 +55,29 @@ const getQuote = () => {
   }, []);
 
   const sendData = async () => {
-    console.log(hold);
-    setId(id);
-    setDate(date);
-    setGallonsReq(gallonsReq);
-    console.log("hi");
-    const userToken = localStorage.getItem("userToken");
-    if (!userToken) {
-      console.log("not user found in getQuote");
-      router.push("/home");
-    } else {
-      console.log("im here");
-      const responser = await axios.get(`/api/getquote?id=${userToken}`);
-      const user = responser.data;
-      console.log("user found in getQuote");
-      // console.log('made it!' + user)
+    try {
+      console.log("saving quote...");
+
+      const response = await axios.post(`/api/submitquote`, {
+        token: JSON.parse(token),
+        gallons: gallonsReq,
+        rate: ppg,
+        total_price: total,
+        address1: address1,
+        address2: address2,
+        city: city,
+        state: state,
+        zipcode: zipcode,
+      });
+      console.log("user saved!");
+    } catch (error) {
+      console.log(error);
+      return setError(
+        error.response?.data?.message || "There was an issue saving your info."
+      );
     }
   };
-  var hold = gallonsReq;
-
+  var r = .75;
   return (
     <>
       <div className="bg-gray-400 bg-opacity-90 overflow-auto h-screen">
@@ -130,6 +137,9 @@ const getQuote = () => {
                   placeholder="$0.00"
                   rows="1"
                   cols="25"
+                  value = {r}
+                  onChange={(e)=> setPPG(e.target.value)}
+                  defaultValue = {ppg}
                 ></textarea>
               </div>
               <br />
@@ -141,6 +151,9 @@ const getQuote = () => {
                   placeholder="$0.00"
                   rows="1"
                   cols="25"
+                  value = {ppg*gallonsReq}
+                  onChange = {(e)=>setTotal(e.target.value)}
+                  defaultValue = {total}
                 ></textarea>
                 <br />
                 <br />
