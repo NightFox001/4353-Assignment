@@ -69,7 +69,7 @@ const getQuote = () => {
         state: state,
         zipcode: zipcode,
       });
-      console.log("user saved!");
+      console.log("quote saved!");
     } catch (error) {
       console.log(error);
       return setError(

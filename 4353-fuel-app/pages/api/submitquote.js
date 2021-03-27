@@ -2,7 +2,7 @@ import { connection, Sequelize } from "../../models";
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
-
+console.log('tip')
 const handler = async (req, res) => {
   var username;
 
