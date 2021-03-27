@@ -31,7 +31,7 @@ const handler = async (req, res) => {
   const invalidAddress =
     !address1 || /[`!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/.test(address1);
   const invalidCity =
-    !city?.length > 0 || /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/.test(city);
+    !city?.length > 0 || /[`!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/.test(city);
   const invalidState = state?.length !== 2 || !/^[a-zA-Z]+$/.test(state);
   const invalidZipcode = !/\d\d\d\d\d(-\d\d\d\d)?$/.test(zipcode);
 
