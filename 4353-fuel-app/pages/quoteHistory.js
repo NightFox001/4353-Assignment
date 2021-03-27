@@ -46,8 +46,8 @@ const QuoteHistory = () => {
     // Indicate that quote history is being loaded (to prevent the table from being created with nothing, causing errors)
     setLoadingHistory(true);
     // Retrieve the userToken from local storage
-    const userToken = localStorage.getItem("userToken");
-    if (!userToken) {
+    const token = localStorage.getItem("userToken");
+    if (!token) {
       // If no userToken was found, redirect to the home page
       router.push("/home");
     } else {
@@ -55,7 +55,7 @@ const QuoteHistory = () => {
       try {
         console.log("Loading quote history...");
         const response = await axios.get(
-          `/api/loadQuoteHistory?id=${userToken}`
+          `/api/loadQuoteHistory?token=${token}`
         );
 
         setQuoteHistory(response.data);
