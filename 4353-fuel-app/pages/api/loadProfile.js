@@ -37,7 +37,7 @@ const handler = async (req, res) => {
     const customer = await connection.query(
       `SELECT id FROM user_credentials WHERE username = '${username}';`
     );
-    if (customer?.length === 0) {
+    if (customer[0].length === 0) {
       return res.status(400).json({
         message: "Customer not found in DB... Try logging out and back in.",
       });
@@ -46,7 +46,7 @@ const handler = async (req, res) => {
     const credId = customer[0][0].id;
     console.log("Customer id found! Getting profile\n");
 
-    const profile = await connection.query(`
+    const profileResult = await connection.query(`
 	SELECT * 
 	FROM client_information
 	WHERE credentials_id = ${credId};`);
@@ -54,7 +54,7 @@ const handler = async (req, res) => {
     // check if a profile exists for user (may be first time logging in)
 
     // no profile exists
-    if (profile[0].length === 0) {
+    if (profileResult[0].length === 0) {
       return res
         .status(400)
         .json({ message: "Please finish creating profile" });
@@ -62,8 +62,16 @@ const handler = async (req, res) => {
 
     // profile does exist
     console.log("\n\nprofile found in DB");
+    const profile = profileResult[0][0];
     console.log(profile);
-    return res.status(200).json({ message: "what is happening" });
+    return res.status(200).json({
+      fullName: profile.client_name,
+      address1: profile.client_address1,
+      address2: profile.client_address2,
+      city: profile.client_city,
+      state: profile.client_state,
+      zipcode: profile.client_zipcode,
+    });
   } catch (error) {
     return res.status(403).json({ message: error.message });
   }
