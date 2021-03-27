@@ -6,6 +6,7 @@ require("dotenv").config();
 const handler = async (req, res) => {
   var username;
 
+
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Use POST method" });
   }
@@ -14,6 +15,14 @@ const handler = async (req, res) => {
   }
 
   const token = JSON.parse(req.query.token);
+  const gallons = req.body?.gallons;
+  const rate = req.body?.rate;
+  const total_price = req.body?.total_price;
+  const address1 = req.body?.address1.trim();
+  const address2 = req.body?.address2.trim();
+  const city = req.body?.city.trim();
+  const state = req.body?.state;
+  const zipcode = req.body?.zipcode;
 
   try {
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
