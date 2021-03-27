@@ -7,6 +7,7 @@ const handler = async (req, res) => {
   let gallons = null;
   const id = req.query?.id;
 
+  /*
   const getQuoteDB = {
     1: {
       id: 1,
@@ -23,7 +24,7 @@ const handler = async (req, res) => {
       gallonsReq: 600,
       date: "02/12/2020",
     },
-  };
+  };*/
 
   try {
     console.log("Getting fuel quote... id: " + id + "\n");
