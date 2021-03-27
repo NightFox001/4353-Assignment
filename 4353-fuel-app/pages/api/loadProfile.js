@@ -1,60 +1,77 @@
-// import { connection, Sequelize } from '../../models'
-const { customerDB } = require("./mockDBs");
+import { connection, Sequelize } from "../../models";
+require("dotenv").config();
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const handler = async (req, res) => {
-  var customer = null;
-  const id = req.query?.id;
+  console.log("\n\nLoading profile\n");
 
-  // mock data
-  /*const customerDB = {
-		1: {
-			id: 1,
-			username: "Ironman", 
-			password: "iamironman",
-			fullName: "Tony Stark",
-			address1: "10880 Malibu Point",
-			address2: "",
-			city: "Malibu",
-			state: "CA",
-			zipcode: "90265",
-	 	},
-		2: {
-			id: 2,
-			username: "Thor", 
-			password: "strongestavenger",
-			fullName: "Thor Odinson",
-			address1: "1234 rd",
-			address2: "",
-			city: "Asgard",
-			state: "AG",
-			zipcode: "11111",
-		},
-		3: {
-			id: 3,
-			username: "Spiderman", 
-			password: "nowayhome",
-			fullName: "Peter Parker",
-			address1: "1234 Queens rd",
-			address2: "",
-			city: "New York City",
-			state: "NY",
-			zipcode: "12345",
-		},
-	}*/
+  var username;
+  if (req.method !== "GET") {
+    return res.status(405).json({ message: "Use GET method" });
+  }
+  if (!req.query?.token) {
+    return res.status(405).json({ message: "token undefined" });
+  }
+
+  const token = JSON.parse(req.query.token);
+  //   console.log(token);
+
+  try {
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+      if (err) throw "oh no";
+      console.log("token after verify: ", user);
+      username = user.username;
+    });
+  } catch (e) {
+    console.log(e);
+    return res.status(405).json({ message: "error trying verify token" });
+  }
 
   try {
     // get customer profile info from DB with userToken that will eventually be provided from login
 
-    console.log("Getting profile... id: " + id + "\n");
-    if (!customerDB[id]) {
+    console.log("Getting profile... token: " + token + "\n");
+    console.log("username: ", username);
+
+    const customer = await connection.query(
+      `SELECT id FROM user_credentials WHERE username = '${username}';`
+    );
+    if (customer[0].length === 0) {
+      return res.status(400).json({
+        message: "Customer not found in DB... Try logging out and back in.",
+      });
+    }
+    // console.log(customer[0][0].id);
+    const credId = customer[0][0].id;
+    console.log("Customer id found! Getting profile\n");
+
+    const profileResult = await connection.query(`
+	SELECT * 
+	FROM client_information
+	WHERE credentials_id = ${credId};`);
+
+    // check if a profile exists for user (may be first time logging in)
+
+    // no profile exists
+    if (profileResult[0].length === 0) {
       return res
         .status(400)
-        .json({ message: "Customer not found with userToken" });
+        .json({ message: "Please finish creating profile" });
     }
 
-    console.log("Customer profile found!\n");
-    customer = customerDB[id];
-    return res.status(200).json(customer);
+    // profile does exist
+    console.log("\n\nprofile found in DB");
+    const profile = profileResult[0][0];
+    console.log(profile);
+    return res.status(200).json({
+      fullName: profile.client_name,
+      address1: profile.client_address1,
+      address2: profile.client_address2,
+      city: profile.client_city,
+      state: profile.client_state,
+      zipcode: profile.client_zipcode,
+    });
   } catch (error) {
     return res.status(403).json({ message: error.message });
   }
