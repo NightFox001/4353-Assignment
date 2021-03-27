@@ -56,20 +56,26 @@ const getQuote = () => {
 
   const sendData = async () => {
     try {
-      console.log("saving quote...");
-
-      const response = await axios.post(`/api/submitquote`, {
-        token: JSON.parse(token),
-        gallons: gallonsReq,
-        rate: ppg,
-        total_price: total,
-        address1: address1,
-        address2: address2,
-        city: city,
-        state: state,
-        zipcode: zipcode,
-      });
-      console.log("user saved!");
+      const userToken = localStorage.getItem("userToken");
+      if (!userToken) {
+        console.log("not user found in loadProfile");
+        router.push("/home");
+      } else {
+        console.log("saving quote...");
+  
+        const response = await axios.post(`/api/submitquote?token=${userToken}`, {
+          token: JSON.parse(userToken),
+          gallons: gallonsReq,
+          rate: ppg,
+          total_price: total,
+          address1: address1,
+          address2: address2,
+          city: city,
+          state: state,
+          zipcode: zipcode,
+        });
+        console.log("quote saved!");
+      }
     } catch (error) {
       console.log(error);
       return setError(

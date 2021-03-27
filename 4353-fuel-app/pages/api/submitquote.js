@@ -41,7 +41,6 @@ const handler = async (req, res) => {
     console.log(id);
 
     //insert new quote info
-    console.log("no profile found for " + username);
     await connection.query(`
     BEGIN;
     INSERT INTO fuelquotes (
