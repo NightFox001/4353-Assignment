@@ -34,14 +34,14 @@ const Profile = () => {
   useEffect(async () => {
     setError("");
     // login api returns id for user to Login component, Login component saves id to local storage as "userToken"
-    const userToken = localStorage.getItem("userToken");
-    console.log(userToken);
-    if (!userToken) {
+    const token = localStorage.getItem("userToken");
+    console.log(token);
+    if (!token) {
       router.push("/home");
     } else {
       // get profile info from loadprofile
       try {
-        const response = await axios.get(`/api/loadProfile?id=${userToken}`);
+        const response = await axios.get(`/api/loadProfile?token=${token}`);
         console.log("profile recieved:");
         console.log(response.data);
 
@@ -54,11 +54,13 @@ const Profile = () => {
         setZipcode(response.data.zipcode);
       } catch (error) {
         return setError(
-          error.response?.data?.message || "There was an issue loading profile"
+          error.response?.data?.message ||
+            error ||
+            "There was an issue loading profile"
         );
       }
     }
-  }, [editing]);
+  }, []);
 
   const handleEdit = () => {
     setEditing(true);
@@ -67,6 +69,7 @@ const Profile = () => {
 
   const handleSave = async () => {
     setError("");
+    const token = localStorage.getItem("userToken");
     const hasId = !!id;
     const hasName = !!fullName && fullName.trim().length > 0;
     const hasAddress1 = !!address1 && address1.trim().length > 0;
@@ -75,43 +78,18 @@ const Profile = () => {
     const hasState = !!state && state.trim().length > 0;
     const hasZipcode = !!zipcode && zipcode.trim().length > 0;
 
-    var user = {};
-    console.log(user);
-    if (!hasId) {
-      return setError("Id for logged in user not found.");
-    } else {
-      user.id = id;
-    }
-    if (!hasName) {
-      return setError("Name is required.");
-    } else {
-      user.fullName = fullName;
-    }
-    if (!hasAddress1) {
-      return setError("Address is required.");
-    } else {
-      user.address1 = address1;
-    }
-    if (hasAddress2) {
-      {
-        user.address2 = address2;
-      }
-    }
-    if (!hasCity) {
-      return setError("City is required.");
-    } else {
-      user.city = city;
-    }
-    if (!hasState) {
-      return setError("State is required.");
-    } else {
-      user.state = state;
-    }
-    if (!hasZipcode) {
-      return setError("Zipcode is required.");
-    } else {
-      user.zipcode = zipcode;
-    }
+    // if (!hasId) return setError("Id for logged in user not found.");
+    if (!hasName) return setError("Name is required.");
+    if (!hasAddress1) return setError("Address is required.");
+    // if (hasAddress2) {
+    //     user.address2 = address2;
+    // }
+    if (!hasCity) return setError("City is required.");
+
+    if (!hasState) return setError("State is required.");
+
+    if (!hasZipcode) return setError("Zipcode is required.");
+
     console.log(error);
     setDisabled(true);
     setEditing(false);
@@ -121,9 +99,18 @@ const Profile = () => {
       // localStorage.setItem("user", JSON.stringify(user))
       // console.log(user)
 
-      const response = await axios.post();
+      const response = await axios.post(`/api/saveProfile`, {
+        token: JSON.parse(token),
+        fullName: fullName,
+        address1: address1,
+        address2: address2,
+        city: city,
+        state: state,
+        zipcode: zipcode,
+      });
       console.log("user saved!");
     } catch (error) {
+      console.log(error);
       return setError(
         error.response?.data?.message || "There was an issue saving your info."
       );
