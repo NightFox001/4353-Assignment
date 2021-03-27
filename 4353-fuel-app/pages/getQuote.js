@@ -77,7 +77,7 @@ const getQuote = () => {
       );
     }
   };
-  var r = .75;
+  var r = 3.50;
   return (
     <>
       <div className="bg-gray-400 bg-opacity-90 overflow-auto h-screen">
@@ -132,7 +132,7 @@ const getQuote = () => {
               <div>
                 Price Per Gallon :
                 <br />
-                <textarea
+                <TextField
                   readOnly
                   placeholder="$0.00"
                   rows="1"
@@ -140,21 +140,20 @@ const getQuote = () => {
                   value = {r}
                   onChange={(e)=> setPPG(e.target.value)}
                   defaultValue = {ppg}
-                ></textarea>
+                />
               </div>
               <br />
               <div>
                 Total Amount :
                 <br />
-                <textarea
+                <TextField
                   readOnly
                   placeholder="$0.00"
                   rows="1"
                   cols="25"
-                  value = {ppg*gallonsReq}
                   onChange = {(e)=>setTotal(e.target.value)}
-                  defaultValue = {total}
-                ></textarea>
+                  value = {gallonsReq*3.50}
+                />
                 <br />
                 <br />
                 <Button onClick={sendData} variant="contained">
