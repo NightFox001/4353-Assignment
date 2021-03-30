@@ -1,4 +1,4 @@
-import { connection, Sequelize } from "../../models";
+import { connection } from "../../models";
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -17,42 +17,6 @@ const handler = async (req, res) => {
   const username = req.query.username;
   const password = req.query.password;
 
-  // const customerDB = [
-  //   {
-  //     id: 1,
-  //     username: "Ironman",
-  //     password: "iamironman",
-  //     fullName: "Tony Stark",
-  //     address1: "10880 Malibu Point",
-  //     address2: "",
-  //     city: "Malibu",
-  //     state: "CA",
-  //     zipcode: "90265",
-  //   },
-  //   {
-  //     id: 2,
-  //     username: "Thor",
-  //     password: "strongestavenger",
-  //     fullName: "Thor Odinson",
-  //     address1: "1234 rd",
-  //     address2: "",
-  //     city: "Asgard",
-  //     state: "AG",
-  //     zipcode: "11111",
-  //   },
-  //   {
-  //     id: 3,
-  //     username: "Spiderman",
-  //     password: "nowayhome",
-  //     fullName: "Peter Parker",
-  //     address1: "1234 Queens rd",
-  //     address2: "",
-  //     city: "New York City",
-  //     state: "NY",
-  //     zipcode: "12345",
-  //   },
-  // ];
-
   // get customer from DB with username = requested username
   try {
     const customer = await connection.query(`
@@ -66,8 +30,6 @@ const handler = async (req, res) => {
       (await bcrypt.compare(password, customer[0][0]?.hashed_password.trim()))
     ) {
       // Customer found and passwprd is correct
-      // console.log("\nLogging in customer...");
-      // console.log(customer[0]);
 
       // if username/password are valid, return token
       const user = { username: username };
