@@ -23,9 +23,6 @@ const handler = async (req, res) => {
   const state = req.body?.state;
   const zipcode = req.body?.zipcode;
 
-  // const hasId = !!id;
-  // const hasAddress2 = !!address2 && address2.trim().length > 0;
-
   const invalidName =
     !fullName || /[`!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/.test(fullName);
   const invalidAddress =
