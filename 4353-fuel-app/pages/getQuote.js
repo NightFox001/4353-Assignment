@@ -73,10 +73,14 @@ const getQuote = () => {
 
   const handleGetQuote = async () => {
     setShowQuote(false);
+    setError("");
     const token = localStorage.getItem("userToken");
     if (!token) {
       router.push("/home");
     } else {
+      if (!gallons) return setError("Must request at least 1 gallon.");
+      if (!date) return setError("Date must be selected.");
+
       try {
         console.log("getting quote...");
 
@@ -105,9 +109,9 @@ const getQuote = () => {
     <div className="bg-gray-400 bg-opacity-90 overflow-auto h-screen ">
       <Header />
       <div className="flex">
-        <div className="w-1/2 m-14 p-8 bg-gray-100 rounded-md">
+        <div className="w-1/2">
           <form>
-            <div className="">
+            <div className="m-14 p-8 bg-gray-100 rounded-md">
               <div className="text-5xl text-black-400">Request Quote</div>
 
               {!!error && (
@@ -116,7 +120,7 @@ const getQuote = () => {
                 </Alert>
               )}
 
-              <div className="flex mt-8 justify-evenly items-center content-center">
+              <div className="flex flex-wrap mt-8 justify-evenly items-center content-center">
                 <div className="">
                   <TextField
                     label="Gallons"
@@ -134,7 +138,9 @@ const getQuote = () => {
                 </div>
                 <div className="">
                   Delivery Date :
+                  <br />
                   <DatePicker
+                    className="border-2 rounded-lg bg-gray-200 border-gray-300 hover:border-gray-400 text-center"
                     selected={date}
                     onChange={(date) => setDate(date)}
                     name="startDate"
@@ -163,9 +169,9 @@ const getQuote = () => {
         </div>
 
         {showQuote && (
-          <div className="w-1/2 m-14 p-8 bg-gray-100 rounded-md">
+          <div className="w-1/2">
             <form>
-              <div>
+              <div className="m-14 p-8 bg-gray-100 rounded-md">
                 <div className="text-5xl text-black-400">Save Quote</div>
 
                 {!!saveQuoteError && (
@@ -173,28 +179,28 @@ const getQuote = () => {
                     {saveQuoteError}
                   </Alert>
                 )}
-                <div className="mt-8 flex flex-row justify-between">
+                <div className="mt-8 flex flex-row justify-evenly">
                   <div className="font-medium text-lg">Gallons:</div>
                   {(!!gallonsQuoted && <div>{gallonsQuoted}</div>) || (
                     <div>Loading...</div>
                   )}
                 </div>
-                <div className="mt-4 flex flex-row justify-between">
-                  <div className="font-medium text-lg">Price:</div>
-                  {(!!pricePG && <div>{pricePG}</div>) || <div>Loading...</div>}
+                <div className="mt-4 flex flex-row justify-evenly">
+                  <div>
+                    <div className="font-medium text-lg">Price:</div>
+                    <div className="text-xs text-gray-400">(per gallon)</div>
+                  </div>
+                  {(!!pricePG && <div>${pricePG}.00</div>) || (
+                    <div>Loading...</div>
+                  )}
                 </div>
-                <div className="text-xs text-gray-400">(per gallon)</div>
 
-                <div className="mt-4 flex flex-row justify-between">
+                <div className="mt-4 flex flex-row justify-evenly">
                   <div className="font-medium text-lg">Total:</div>
-                  {(!!total && <div>{total}</div>) || <div>Loading...</div>}
+                  {(!!total && <div>${total}.00</div>) || <div>Loading...</div>}
                 </div>
-                <div className="mt-8">
-                  <Button
-                    className="justify-self-center mt-8"
-                    onClick={handleGetQuote}
-                    variant="contained"
-                  >
+                <div className="text-center mt-10">
+                  <Button onClick={handleGetQuote} variant="contained">
                     Save Quote
                   </Button>
                 </div>
