@@ -18,22 +18,24 @@ const getQuote = () => {
   const [saveQuoteError, setSaveQuoteError] = useState("");
   const [id, setId] = useState(null);
   const [fullName, setFullName] = useState("");
-  const [fullAddress, setFullAddress] = useState("12343, werdf, dfs");
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
   const [cityStateZip, setCityStateZip] = useState("");
   const [gallons, setGallons] = useState(null);
   const [gallonsQuoted, setGallonsQuoted] = useState();
   const [date, setDate] = useState("");
-  const [pricePG, setPricePG] = useState(3.5);
+  const [rate, setRate] = useState(3.5);
   const [total, setTotal] = useState(null);
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zipcode, setZipcode] = useState("");
   const [showQuote, setShowQuote] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(async () => {
     setError("");
+    setIsLoading(true);
+
     // login api returns id for user to Login component, Login component saves id to local storage as "userToken"
     const token = localStorage.getItem("userToken");
     if (!token) {
@@ -61,7 +63,9 @@ const getQuote = () => {
               response.data?.zipcode
           )
         );
+        setIsLoading(false);
       } catch (error) {
+        setIsLoading(false);
         return setError(
           error.response?.data?.message ||
             error?.message ||
@@ -74,6 +78,7 @@ const getQuote = () => {
   const handleGetQuote = async () => {
     setShowQuote(false);
     setError("");
+    setSaveQuoteError("");
     const token = localStorage.getItem("userToken");
     if (!token) {
       router.push("/home");
@@ -83,7 +88,7 @@ const getQuote = () => {
 
       try {
         console.log("getting quote...");
-
+        setIsLoading(true);
         const response = await axios.get(
           `/api/requestQuote?token=${token}&gallons=${gallons}&date=${date}&state=${state}`
         );
@@ -91,11 +96,13 @@ const getQuote = () => {
         console.log("gallons: " + response.data?.gallonsQuoted);
 
         setGallonsQuoted(Number(response.data?.gallonsQuoted));
-        setPricePG(Number(response.data?.pricePG));
-        setTotal(Number(response.data?.pricePG * gallons));
+        setRate(Number(response.data?.rate));
+        setTotal(Number(response.data?.rate * gallons));
 
         setShowQuote(true);
+        setIsLoading(false);
       } catch (error) {
+        setIsLoading(false);
         console.log(error);
         return setError(
           error.response?.data?.message ||
@@ -104,10 +111,51 @@ const getQuote = () => {
       }
     }
   };
-  var r = 3.5;
+
+  const handleSaveQuote = async () => {
+    setError("");
+    const token = localStorage.getItem("userToken");
+    if (!token) {
+      router.push("/home");
+    } else {
+      if (!gallons) return setError("Must request at least 1 gallon.");
+      if (!date)
+        return setSaveQuoteError("Could not save. Invalid date (" + date + ")");
+      if (!total) return setError("Total is invalid (" + total + ")");
+
+      try {
+        console.log("saving quote...");
+        setIsLoading(true);
+        const response = await axios.post(`/api/saveQuote`, {
+          token: token,
+          fullName: fullName,
+          address1: address1,
+          address2: address2,
+          city: city,
+          state: state,
+          zipcode: zipcode,
+          gallons: gallons,
+          date: date,
+          rate: rate,
+          total: total,
+        });
+
+        console.log("quote saved!");
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        console.log(error);
+        return setSaveQuoteError(
+          error.response?.data?.message ||
+            "There was an issue saving your quote."
+        );
+      }
+    }
+  };
   return (
     <div className="bg-gray-400 bg-opacity-90 overflow-auto h-screen ">
       <Header />
+
       <div className="flex">
         <div className="w-1/2">
           <form>
@@ -160,7 +208,11 @@ const getQuote = () => {
                 </div>
               </div>
               <div className="text-center mt-10">
-                <Button onClick={handleGetQuote} variant="contained">
+                <Button
+                  onClick={handleGetQuote}
+                  disabled={isLoading}
+                  variant="contained"
+                >
                   Get Quote
                 </Button>
               </div>
@@ -190,9 +242,7 @@ const getQuote = () => {
                     <div className="font-medium text-lg">Price:</div>
                     <div className="text-xs text-gray-400">(per gallon)</div>
                   </div>
-                  {(!!pricePG && <div>${pricePG}.00</div>) || (
-                    <div>Loading...</div>
-                  )}
+                  {(!!rate && <div>${rate}.00</div>) || <div>Loading...</div>}
                 </div>
 
                 <div className="mt-4 flex flex-row justify-evenly">
@@ -200,7 +250,11 @@ const getQuote = () => {
                   {(!!total && <div>${total}.00</div>) || <div>Loading...</div>}
                 </div>
                 <div className="text-center mt-10">
-                  <Button onClick={handleGetQuote} variant="contained">
+                  <Button
+                    onClick={handleSaveQuote}
+                    disabled={isLoading}
+                    variant="contained"
+                  >
                     Save Quote
                   </Button>
                 </div>

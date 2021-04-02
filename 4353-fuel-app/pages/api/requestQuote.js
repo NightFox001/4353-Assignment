@@ -41,7 +41,7 @@ const handler = async (req, res) => {
 
     // but rn just returning hard coded price/rate
     console.log("gallons: " + gallons);
-    res.status(200).json({ pricePG: 2, gallonsQuoted: gallons });
+    res.status(200).json({ rate: 2, gallonsQuoted: gallons });
 
     //insert new quote info
     // await connection.query(`
