@@ -1,10 +1,7 @@
-import { useState } from "react";
 import { useRouter } from "next/router";
 
 export const Header = () => {
   const router = useRouter();
-  const [showSearch, setShowSearch] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
 
   const handleLogOut = () => {
     router.push("/home");
