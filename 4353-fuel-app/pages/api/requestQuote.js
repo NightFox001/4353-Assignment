@@ -57,7 +57,34 @@ const handler = async (req, res) => {
 
     var hist = 0.01;
     //check for history quote
-
+    useEffect(async () => {
+      // Indicate that quote history is being loaded (to prevent the table from being created with nothing, causing errors)
+      setLoadingHistory(true);
+      // Retrieve the userToken from local storage
+      const token = localStorage.getItem("userToken");
+      if (!token) {
+        // If no userToken was found, redirect to the home page
+        router.push("/home");
+      } else {
+        // Attempt to load quote history from loadQuoteHistory
+        try {
+          console.log("Loading quote history...");
+          const response = await axios.get(
+            `/api/loadQuoteHistory?token=${token}`
+          );
+  
+          setQuoteHistory(response.data);
+          setError("");
+          setLoadingHistory(false);
+        } catch (err) {
+          console.log(err);
+          return setError(
+            err.response?.data?.message ||
+              "There was an issue loading quote history"
+          );
+        }
+      }
+    },[]);
     var margin = (inState - hist + GR + .1)*1.5
     // later check if customer with this username is a previous custom
 
