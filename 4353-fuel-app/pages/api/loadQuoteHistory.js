@@ -66,12 +66,4 @@ const handler = async (req, res) => {
     }
 }
 
-
-// In reality, this would query the database to get this data, but here it is hard coded
-const getQuoteHistory = (user_id) => {
-    return [
-        
-    ]
-}
-
 export default handler
