@@ -75,30 +75,6 @@ const getQuote = () => {
     }
   }, []);
 
-  const sendData = async () => {
-    try {
-      console.log("saving quote...");
-
-      const response = await axios.post(`/api/submitquote`, {
-        token: JSON.parse(token),
-        gallons: gallonsReq,
-        rate: ppg,
-        total_price: total,
-        address1: address1,
-        address2: address2,
-        city: city,
-        state: state,
-        zipcode: zipcode,
-      });
-      console.log("quote saved!");
-    } catch (error) {
-      console.log(error);
-      return setError(
-        error.response?.data?.message || "There was an issue saving your info."
-      );
-    }
-  };
-
   const handleGetQuote = async () => {
     setShowQuote(false);
     setError("");
@@ -266,12 +242,12 @@ const getQuote = () => {
                     <div className="font-medium text-lg">Price:</div>
                     <div className="text-xs text-gray-400">(per gallon)</div>
                   </div>
-                  {(!!rate && <div>${rate}.00</div>) || <div>Loading...</div>}
+                  {(!!rate && <div>${rate}0</div>) || <div>Loading...</div>}
                 </div>
 
                 <div className="mt-4 flex flex-row justify-evenly">
                   <div className="font-medium text-lg">Total:</div>
-                  {(!!total && <div>${total}.00</div>) || <div>Loading...</div>}
+                  {(!!total && <div>${total}</div>) || <div>Loading...</div>}
                 </div>
                 <div className="text-center mt-10">
                   <Button
@@ -279,7 +255,7 @@ const getQuote = () => {
                     disabled={isLoading}
                     variant="contained"
                   >
-                    Save Quote
+                    Submit Order
                   </Button>
                 </div>
               </div>

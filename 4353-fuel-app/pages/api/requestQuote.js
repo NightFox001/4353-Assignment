@@ -1,4 +1,6 @@
 import { connection } from "../../models";
+import axios from "axios";
+import React, { Component, useEffect } from "react";
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
@@ -37,27 +39,35 @@ const handler = async (req, res) => {
       });
     }
 
+    var inState;
+    if(state.includes("TX")){
+      inState = .02;
+    }
+    else{
+      inState = .04;
+    }
+
+    var GR;
+    if(gallons > 1000){
+      GR = .02
+    }
+    else{
+      GR = .03
+    }
+
+    var hist = 0.01;
+    //check for history quote
+
+    var margin = (inState - hist + GR + .1)*1.5
     // later check if customer with this username is a previous custom
 
     // but rn just returning hard coded price/rate
+    console.log("state: " + state)
     console.log("gallons: " + gallons);
-    res.status(200).json({ rate: 2, gallonsQuoted: gallons });
+    res.status(200).json({ rate: margin+1.50, gallonsQuoted: gallons });
 
-    //insert new quote info
-    // await connection.query(`
-    // BEGIN;
-    // INSERT INTO fuelquotes (
-    //   credentials_id,
-    //   gallons,
-    //   rate,
-    //   total_price,
-    //   delivery_address1,
-    //   delivery_address2,
-    //   delivery_city,
-    //   delivery_state,
-    //   delivery_zipcode
-    //   )
-    // VALUES (${id}, ${gallons}, ${rate}, ${total_price}, '${address1}', '${address2}', '${city}', '${state}', '${zipcode}' );`);
+
+
     // await connection.query('COMMIT;')
   } catch (e) {
     // await connection.query('ROLLBACK')
