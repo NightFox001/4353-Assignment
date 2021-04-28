@@ -114,6 +114,7 @@ const getQuote = () => {
 
   const handleSaveQuote = async () => {
     setError("");
+    setSaveQuoteError("");
     const token = localStorage.getItem("userToken");
     if (!token) {
       router.push("/home");
