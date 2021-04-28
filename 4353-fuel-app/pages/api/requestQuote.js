@@ -1,11 +1,13 @@
 import { connection } from "../../models";
-import axios from "axios";
-import React, { Component, useEffect } from "react";
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const handler = async (req, res) => {
   var username;
+  var hasHistory = false;
+  var inState = 0.04;
+  var GR = 0.03;
+  var hist = 0.01;
 
   if (req.method !== "GET") {
     return res.status(405).json({ message: "Use GET method" });
@@ -30,6 +32,7 @@ const handler = async (req, res) => {
   }
 
   try {
+    // make sure user exist in DB
     const customer = await connection.query(
       `SELECT id FROM user_credentials WHERE username = '${username}';`
     );
@@ -39,8 +42,7 @@ const handler = async (req, res) => {
       });
     }
 
-    var hasHistory = false;
-    // later check if customer with this customerID is a previous customer
+    // check if this user is a previous customer
     const quoteHistory = await connection.query(
       `SELECT * FROM fuelquotes WHERE credentials_id = ${customer[0][0].id}`
     );
@@ -48,30 +50,17 @@ const handler = async (req, res) => {
       hasHistory = true;
     }
 
-    var inState = 0.04;
     if (state.includes("TX")) {
       inState = 0.02;
     }
-
-    var GR;
     if (gallons > 1000) {
       GR = 0.02;
-    } else {
-      GR = 0.03;
     }
-
-    var hist = 0.01;
-
-    //check for history quote
-
     var margin = (inState - hist + GR + 0.1) * 1.5;
 
-    // but rn just returning hard coded price/rate
+    // FIXME
     res.status(200).json({ rate: margin + 1.5, gallonsQuoted: gallons });
-
-    // await connection.query('COMMIT;')
   } catch (e) {
-    // await connection.query('ROLLBACK')
     console.log(e);
   }
 };
