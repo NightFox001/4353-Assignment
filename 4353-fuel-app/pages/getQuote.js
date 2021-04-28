@@ -243,12 +243,12 @@ const getQuote = () => {
                     <div className="font-medium text-lg">Price:</div>
                     <div className="text-xs text-gray-400">(per gallon)</div>
                   </div>
-                  {(!!rate && <div>${rate}.00</div>) || <div>Loading...</div>}
+                  {(!!rate && <div>${rate}0</div>) || <div>Loading...</div>}
                 </div>
 
                 <div className="mt-4 flex flex-row justify-evenly">
                   <div className="font-medium text-lg">Total:</div>
-                  {(!!total && <div>${total}.00</div>) || <div>Loading...</div>}
+                  {(!!total && <div>${total}</div>) || <div>Loading...</div>}
                 </div>
                 <div className="text-center mt-10">
                   <Button
@@ -256,7 +256,7 @@ const getQuote = () => {
                     disabled={isLoading}
                     variant="contained"
                   >
-                    Save Quote
+                    Submit Order
                   </Button>
                 </div>
               </div>
