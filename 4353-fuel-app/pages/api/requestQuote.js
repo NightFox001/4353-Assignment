@@ -47,7 +47,7 @@ const handler = async (req, res) => {
     const quoteHistory = await connection.query(
       `SELECT * FROM fuelquotes WHERE credentials_id = ${customer[0][0].id}`
     );
-    if (quoteHistory[0].length !== 0) {
+    if (quoteHistory[0].length === 0) {
       historFactor = 0;
     }
 
