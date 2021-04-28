@@ -176,7 +176,6 @@ const getQuote = () => {
                     type="number"
                     InputProps={{
                       inputProps: {
-                        max: 1000,
                         min: 1,
                       },
                     }}

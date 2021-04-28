@@ -4,10 +4,11 @@ require("dotenv").config();
 
 const handler = async (req, res) => {
   var username;
-  var hasHistory = false;
-  var inState = 0.04;
-  var GR = 0.03;
-  var hist = 0.01;
+  var stateFactor = 0.04; // default. 0.02 if state is TX
+  var gallonsReqFactor = 0.03; // default. 0.02 if req more than 1000 gals
+  var historFactor = 0.01; // default. 0.00 if user has no history.
+  const profitFactor = 0.1;
+  const currentPrice = 1.5;
 
   if (req.method !== "GET") {
     return res.status(405).json({ message: "Use GET method" });
@@ -47,19 +48,23 @@ const handler = async (req, res) => {
       `SELECT * FROM fuelquotes WHERE credentials_id = ${customer[0][0].id}`
     );
     if (quoteHistory[0].length !== 0) {
-      hasHistory = true;
+      historFactor = 0;
     }
 
     if (state.includes("TX")) {
-      inState = 0.02;
+      stateFactor = 0.02;
     }
     if (gallons > 1000) {
-      GR = 0.02;
+      gallonsReqFactor = 0.02;
     }
-    var margin = (inState - hist + GR + 0.1) * 1.5;
+    var margin =
+      currentPrice *
+      (stateFactor - historFactor + gallonsReqFactor + profitFactor);
+
+    const rate = currentPrice + margin;
 
     // FIXME
-    res.status(200).json({ rate: margin + 1.5, gallonsQuoted: gallons });
+    res.status(200).json({ rate: rate.toFixed(2), gallonsQuoted: gallons });
   } catch (e) {
     console.log(e);
   }
