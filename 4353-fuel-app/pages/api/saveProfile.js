@@ -1,4 +1,4 @@
-import { connection, Sequelize } from "../../models";
+import { connection } from "../../models";
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");

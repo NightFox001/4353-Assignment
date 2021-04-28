@@ -1,4 +1,4 @@
-import { connection, Sequelize } from "../../models";
+import { connection } from "../../models";
 const bcrypt = require("bcrypt");
 
 const handler = async (req, res) => {

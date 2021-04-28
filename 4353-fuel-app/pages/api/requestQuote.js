@@ -39,61 +39,35 @@ const handler = async (req, res) => {
       });
     }
 
-    var inState;
-    if(state.includes("TX")){
-      inState = .02;
+    var hasHistory = false;
+    // later check if customer with this customerID is a previous customer
+    const quoteHistory = await connection.query(
+      `SELECT * FROM fuelquotes WHERE credentials_id = ${customer[0][0].id}`
+    );
+    if (quoteHistory[0].length !== 0) {
+      hasHistory = true;
     }
-    else{
-      inState = .04;
+
+    var inState = 0.04;
+    if (state.includes("TX")) {
+      inState = 0.02;
     }
 
     var GR;
-    if(gallons > 1000){
-      GR = .02
-    }
-    else{
-      GR = .03
+    if (gallons > 1000) {
+      GR = 0.02;
+    } else {
+      GR = 0.03;
     }
 
     var hist = 0.01;
+
     //check for history quote
-    useEffect(async () => {
-      // Indicate that quote history is being loaded (to prevent the table from being created with nothing, causing errors)
-      setLoadingHistory(true);
-      // Retrieve the userToken from local storage
-      const token = localStorage.getItem("userToken");
-      if (!token) {
-        // If no userToken was found, redirect to the home page
-        router.push("/home");
-      } else {
-        // Attempt to load quote history from loadQuoteHistory
-        try {
-          console.log("Loading quote history...");
-          const response = await axios.get(
-            `/api/loadQuoteHistory?token=${token}`
-          );
-  
-          setQuoteHistory(response.data);
-          setError("");
-          setLoadingHistory(false);
-        } catch (err) {
-          console.log(err);
-          return setError(
-            err.response?.data?.message ||
-              "There was an issue loading quote history"
-          );
-        }
-      }
-    },[]);
-    var margin = (inState - hist + GR + .1)*1.5
-    // later check if customer with this username is a previous custom
+
+    var margin = (inState - hist + GR + 0.1) * 1.5;
 
     // but rn just returning hard coded price/rate
-    console.log("state: " + state)
-    console.log("gallons: " + gallons);
-    res.status(200).json({ rate: margin+1.50, gallonsQuoted: gallons });
-
-
+    res.status(200).json({ rate: margin + 1.5, gallonsQuoted: gallons });
 
     // await connection.query('COMMIT;')
   } catch (e) {
