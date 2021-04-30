@@ -110,7 +110,7 @@ describe("saveProfile API", () => {
         const response = await handler(req, res);
         expect(res.status).toBeCalledWith(200);
         expect(res.json).toBeCalledWith({
-          message: "Profile saved to DB",
+          message: "Profile saved to DB!",
         });
       });
     });
@@ -175,14 +175,11 @@ describe("saveProfile API", () => {
           message: "Server Recieved Invalid City.",
         });
       });
-      it("Should return not return error if name contains a period", async () => {
+      it("Should return not return error if city name contains a period", async () => {
         req.body.fullName = "Tony";
         req.body.city = "St. Louis";
         const response = await handler(req, res);
-        expect(res.status).toBeCalledWith(400);
-        expect(res.json).toBeCalledWith({
-          message: "Server Recieved Invalid City.",
-        });
+        expect(res.status).toBeCalledWith(200);
       });
     });
 
@@ -252,7 +249,7 @@ describe("saveProfile API", () => {
         // req.body.state = "CA";
         const response = await handler(req, res);
         expect(res.status).toBeCalledWith(200);
-        expect(res.json).toBeCalledWith({ message: "Profile saved to DB" });
+        expect(res.json).toBeCalledWith({ message: "Profile saved to DB!" });
       });
     });
 
@@ -352,7 +349,7 @@ describe("saveProfile API", () => {
         const response = await handler(req, res);
         expect(res.status).toBeCalledWith(200);
         expect(res.json).toBeCalledWith({
-          message: "Profile saved to DB",
+          message: "Profile saved to DB!",
         });
       });
     });
@@ -363,7 +360,7 @@ describe("saveProfile API", () => {
         req.body.fullName = "Tony";
         req.body.address1 = undefined;
         const response = await handler(req, res);
-        expect(res.status).toBeCalledWith(405);
+        expect(res.status).toBeCalledWith(400);
         expect(res.json).toBeCalledWith({
           message: "Server Recieved Invalid Address.",
         });
