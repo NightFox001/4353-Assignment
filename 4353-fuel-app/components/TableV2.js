@@ -4,9 +4,6 @@ import { useState } from "react";
 export const Quotebox = ({ quote }) => {
   const [showLogs, setShowLogs] = useState(false);
 
-  console.log("quote...");
-  console.log(quote);
-
   return (
     <div
       data-testid="quotebox"

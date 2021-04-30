@@ -14,7 +14,6 @@ const handler = async (req, res) => {
 
   const username = req.query.username; //username entered by user
   const hashedPassword = await bcrypt.hash(req.query.password, 10);
-  // console.log(hashedPassword);
 
   // check if entered username already exists
   try {

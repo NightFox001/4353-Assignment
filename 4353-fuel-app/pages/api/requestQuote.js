@@ -24,7 +24,6 @@ const handler = async (req, res) => {
   try {
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
       if (err) throw "oh no";
-      console.log("token after verify: ", user);
       username = user.username;
     });
   } catch (e) {

@@ -35,7 +35,6 @@ const handler = async (req, res) => {
       const user = { username: username };
 
       const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-      // console.log("\n\ntoken: " + token);
       return res.status(200).json(token);
     }
 

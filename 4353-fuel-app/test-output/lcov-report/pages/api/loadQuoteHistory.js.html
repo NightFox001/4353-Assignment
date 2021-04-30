@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25.93% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/27</span>
+                <span class='fraction'>8/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.5% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/8</span>
+                <span class='fraction'>4/8</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.92% </span>
+                <span class="strong">34.78% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/26</span>
+                <span class='fraction'>8/23</span>
             </div>
         
             
@@ -119,32 +119,28 @@
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -154,7 +150,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -171,16 +167,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -200,17 +192,17 @@ const handler = async (req, res) =&gt; {
   }
   var username;
   // A token MUST be included
-  <span class="missing-if-branch" title="else path not taken" >E</span>if (!req.query?.token) {
+  if (!req.query?.token) {
     return res.status(400).json({ message: "token undefined" });
   }
 &nbsp;
-  const token = <span class="cstat-no" title="statement not covered" >JSON.parse(req.query.token);</span>
+  const token = JSON.parse(req.query.token);
 &nbsp;
   // Verify the token
 <span class="cstat-no" title="statement not covered" >  try {</span>
 <span class="cstat-no" title="statement not covered" >    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, <span class="fstat-no" title="function not covered" >(e</span>rr, user) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      if (err) <span class="cstat-no" title="statement not covered" >throw "oopsy";</span></span>
-<span class="cstat-no" title="statement not covered" >      console.log("token after verification: ", user);</span>
+      // console.log("token after verification: ", user);
 <span class="cstat-no" title="statement not covered" >      username = user.username;</span>
     });
   } catch (err) {
@@ -220,7 +212,7 @@ const handler = async (req, res) =&gt; {
 &nbsp;
   // Get the quotes with the matching customer id from the DB
 <span class="cstat-no" title="statement not covered" >  try {</span>
-<span class="cstat-no" title="statement not covered" >    console.log(`Attempting to get quote history with username = ${username}`);</span>
+    // console.log(`Attempting to get quote history with username = ${username}`);
     // Get the id of the customer with that username
     const customer = <span class="cstat-no" title="statement not covered" >await connection.query(`</span>
         SELECT  id
@@ -237,17 +229,13 @@ const handler = async (req, res) =&gt; {
         FROM    fuelquotes
         WHERE   credentials_id = '${credentials_id}';
         `);
-&nbsp;
     const quotes = <span class="cstat-no" title="statement not covered" >history[0];</span>
-    //console.log("Quote History:\n", quotes)
 &nbsp;
     // If no quotes were found
 <span class="cstat-no" title="statement not covered" >    if (quotes.length == 0) {</span>
 <span class="cstat-no" title="statement not covered" >      return res.status(404).json({ message: "No quote history found" });</span>
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    console.log("Quote history found");</span>
-    //console.log(history)
 <span class="cstat-no" title="statement not covered" >    return res.status(200).json(quotes);</span>
   } catch (err) {
 <span class="cstat-no" title="statement not covered" >    return res.status(403).json({ message: err.message });</span>
@@ -262,7 +250,7 @@ export default handler;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Apr 30 2021 11:37:37 GMT-0500 (Central Daylight Time)
+                at Fri Apr 30 2021 12:03:33 GMT-0500 (Central Daylight Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

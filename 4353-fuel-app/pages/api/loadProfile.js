@@ -4,8 +4,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const handler = async (req, res) => {
-  console.log("\n\nLoading profile\n");
-
   var username;
   if (req.method !== "GET") {
     return res.status(405).json({ message: "Use GET method" });
@@ -20,7 +18,6 @@ const handler = async (req, res) => {
   try {
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
       if (err) throw "oh no";
-      console.log("token after verify: ", user);
       username = user.username;
     });
   } catch (e) {
@@ -30,10 +27,6 @@ const handler = async (req, res) => {
 
   try {
     // get customer profile info from DB with userToken that will eventually be provided from login
-
-    console.log("Getting profile... token: " + token + "\n");
-    console.log("username: ", username);
-
     const customer = await connection.query(
       `SELECT id FROM user_credentials WHERE username = '${username}';`
     );
@@ -42,17 +35,13 @@ const handler = async (req, res) => {
         message: "Customer not found in DB... Try logging out and back in.",
       });
     }
-    // console.log(customer[0][0].id);
     const credId = customer[0][0].id;
-    console.log("Customer id found! Getting profile\n");
-
     const profileResult = await connection.query(`
 	SELECT * 
 	FROM client_information
 	WHERE credentials_id = ${credId};`);
 
     // check if a profile exists for user (may be first time logging in)
-
     // no profile exists
     if (profileResult[0].length === 0) {
       return res
@@ -61,9 +50,8 @@ const handler = async (req, res) => {
     }
 
     // profile does exist
-    console.log("\n\nprofile found in DB");
     const profile = profileResult[0][0];
-    console.log(profile);
+    // console.log(profile);
     return res.status(200).json({
       fullName: profile.client_name,
       address1: profile.client_address1,

@@ -44,8 +44,6 @@ const getQuote = () => {
       // get profile info from loadprofile
       try {
         const response = await axios.get(`/api/loadProfile?token=${token}`);
-        console.log("profile recieved:");
-        console.log(response.data);
 
         setId(response.data?.id);
         setFullName(response.data?.fullName);
@@ -87,13 +85,10 @@ const getQuote = () => {
       if (!date) return setError("Date must be selected.");
 
       try {
-        console.log("getting quote...");
         setIsLoading(true);
         const response = await axios.get(
           `/api/requestQuote?token=${token}&gallons=${gallons}&date=${date}&state=${state}`
         );
-        console.log("quote requested!");
-        console.log("gallons: " + response.data?.gallonsQuoted);
 
         setGallonsQuoted(Number(response.data?.gallonsQuoted));
         setRate(Number(response.data?.rate));
@@ -125,7 +120,6 @@ const getQuote = () => {
       if (!total) return setError("Total is invalid (" + total + ")");
 
       try {
-        console.log("saving quote...");
         setIsLoading(true);
         const response = await axios.post(`/api/saveQuote`, {
           token: token,
@@ -141,7 +135,6 @@ const getQuote = () => {
           total: total,
         });
 
-        console.log("quote saved!");
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);

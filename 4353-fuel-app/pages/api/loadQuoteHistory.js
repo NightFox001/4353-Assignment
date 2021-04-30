@@ -19,7 +19,7 @@ const handler = async (req, res) => {
   try {
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
       if (err) throw "oopsy";
-      console.log("token after verification: ", user);
+      // console.log("token after verification: ", user);
       username = user.username;
     });
   } catch (err) {
@@ -29,7 +29,7 @@ const handler = async (req, res) => {
 
   // Get the quotes with the matching customer id from the DB
   try {
-    console.log(`Attempting to get quote history with username = ${username}`);
+    // console.log(`Attempting to get quote history with username = ${username}`);
     // Get the id of the customer with that username
     const customer = await connection.query(`
         SELECT  id
@@ -46,17 +46,13 @@ const handler = async (req, res) => {
         FROM    fuelquotes
         WHERE   credentials_id = '${credentials_id}';
         `);
-
     const quotes = history[0];
-    //console.log("Quote History:\n", quotes)
 
     // If no quotes were found
     if (quotes.length == 0) {
       return res.status(404).json({ message: "No quote history found" });
     }
 
-    console.log("Quote history found");
-    //console.log(history)
     return res.status(200).json(quotes);
   } catch (err) {
     return res.status(403).json({ message: err.message });

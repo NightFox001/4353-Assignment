@@ -41,8 +41,8 @@ const Profile = () => {
       // get profile info from loadprofile
       try {
         const response = await axios.get(`/api/loadProfile?token=${token}`);
-        console.log("profile recieved:");
-        console.log(response.data);
+        // console.log("profile recieved:");
+        // console.log(response.data);
 
         setId(response.data.id);
         setFullName(response.data.fullName);
@@ -93,11 +93,6 @@ const Profile = () => {
     setDisabled(true);
     setEditing(false);
     try {
-      console.log("saving user...");
-      // localStorage.removeItem('user')
-      // localStorage.setItem("user", JSON.stringify(user))
-      // console.log(user)
-
       const response = await axios.post(`/api/saveProfile`, {
         token: JSON.parse(token),
         fullName: fullName,
@@ -107,7 +102,6 @@ const Profile = () => {
         state: state,
         zipcode: zipcode,
       });
-      console.log("user saved!");
     } catch (error) {
       console.log(error);
       return setError(

@@ -4,9 +4,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const handler = async (req, res) => {
-  console.log("\n\nSaving profile\n");
-  console.log(req.body);
-
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Use POST method" });
   }
@@ -59,7 +56,6 @@ const handler = async (req, res) => {
     } else {
       jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err) throw "oh no";
-        console.log("token after verify: ", user);
         username = user.username;
       });
     }
@@ -69,9 +65,6 @@ const handler = async (req, res) => {
   }
 
   try {
-    console.log("Getting profile in saveProfile... token: " + token + "\n");
-    console.log("username: ", username);
-
     const customer = await connection.query(
       `SELECT id FROM user_credentials WHERE username = '${username}';`
     );
@@ -82,8 +75,6 @@ const handler = async (req, res) => {
     }
 
     const id = customer[0][0].id;
-    console.log(id);
-
     const user = await connection.query(`
     SELECT * 
     FROM client_information

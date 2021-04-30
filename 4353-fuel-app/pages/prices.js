@@ -10,10 +10,8 @@ const prices = () => {
   useEffect(async () => {
     const userToken = localStorage.getItem("userToken");
     if (!userToken) {
-      console.log("not user found in getQuote");
       router.push("/home");
     } else {
-      console.log("user found in getQuote");
       const response = await axios.get(`/api/getquote?id=${userToken}`);
       const user = response.data;
       setGallonsReq(gallonsReq);
