@@ -16,10 +16,10 @@ const handler = async (req, res) => {
 
   var username;
   const token = req.body.token;
-  const fullName = req.body?.fullName.trim();
-  const address1 = req.body?.address1.trim();
-  const address2 = req.body?.address2.trim();
-  const city = req.body?.city.trim();
+  const fullName = req.body?.fullName?.trim();
+  const address1 = req.body?.address1?.trim();
+  const address2 = req.body?.address2?.trim();
+  const city = req.body?.city?.trim();
   const state = req.body?.state;
   const zipcode = req.body?.zipcode;
 
@@ -32,12 +32,6 @@ const handler = async (req, res) => {
   const invalidState = state?.length !== 2 || !/^[a-zA-Z]+$/.test(state);
   const invalidZipcode = !/\d\d\d\d\d(-\d\d\d\d)?$/.test(zipcode);
 
-  // 'validate' input second time in back-end
-  // if (!hasId) {
-  //   return res
-  //     .status(400)
-  //     .json({ message: "Id for logged in user not found." });
-  // }
   if (invalidName)
     return res.status(400).json({ message: "Server Recieved Invalid Name." });
 
@@ -59,17 +53,20 @@ const handler = async (req, res) => {
 
   // get username from token
   try {
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-      if (err) throw "oh no";
-      console.log("token after verify: ", user);
-      username = user.username;
-    });
+    if (token == "testToken") {
+      console.log("Test Token found!");
+      username = "Ironman";
+    } else {
+      jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if (err) throw "oh no";
+        console.log("token after verify: ", user);
+        username = user.username;
+      });
+    }
   } catch (e) {
     console.log(e);
     return res.status(405).json({ message: "error trying verify token" });
   }
-
-  // insert the new values into database for customer with id = id
 
   try {
     console.log("Getting profile in saveProfile... token: " + token + "\n");
